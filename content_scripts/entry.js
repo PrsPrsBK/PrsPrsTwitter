@@ -35,7 +35,6 @@ function handleKeydown(ev) {
 };
 
 function start() {
-  console.log('TWITTER==================================' + window.location.pathname);
   document.addEventListener('keydown', handleKeydown);
   INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
 };
