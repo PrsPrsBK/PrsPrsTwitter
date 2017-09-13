@@ -18,7 +18,6 @@ function handleKeydown(ev) {
   var code = ev.keyCode;
   switch(code) {
     case 65: //0x41 A
-      console.log('START IF IS NOT AUTO ' + IS_AUTO_UPDATE);
       if(IS_AUTO_UPDATE === false) {
         INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
         IS_AUTO_UPDATE = true;
