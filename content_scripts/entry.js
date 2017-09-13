@@ -24,7 +24,7 @@ function handleKeydown(ev) {
         IS_AUTO_UPDATE = true;
       }
       break;
-    case 81: //0x46 Q
+    case 81: //0x51 Q
       console.log('QUIT IF IS AUTO ' + IS_AUTO_UPDATE);
       if(IS_AUTO_UPDATE) {
         clearInterval(INTERVAL_ID);
