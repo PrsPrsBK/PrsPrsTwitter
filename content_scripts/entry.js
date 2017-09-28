@@ -21,6 +21,7 @@ function handleKeydown(ev) {
       console.log('A');
       if(IS_AUTO_UPDATE === false) {
         INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
+        browser.runtime.sendMessage({'badge':'on'});
         IS_AUTO_UPDATE = true;
       }
       break;
@@ -28,6 +29,7 @@ function handleKeydown(ev) {
       console.log('Q');
       if(IS_AUTO_UPDATE) {
         clearInterval(INTERVAL_ID);
+        browser.runtime.sendMessage({'badge':'off'});
         IS_AUTO_UPDATE = false;
       }
       break;
