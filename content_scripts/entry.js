@@ -18,12 +18,14 @@ function handleKeydown(ev) {
   var code = ev.keyCode;
   switch(code) {
     case 65: //0x41 A
+      console.log('A');
       if(IS_AUTO_UPDATE === false) {
         INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
         IS_AUTO_UPDATE = true;
       }
       break;
     case 81: //0x51 Q
+      console.log('Q');
       if(IS_AUTO_UPDATE) {
         clearInterval(INTERVAL_ID);
         IS_AUTO_UPDATE = false;
@@ -38,3 +40,4 @@ function start() {
 };
 
 start();
+
