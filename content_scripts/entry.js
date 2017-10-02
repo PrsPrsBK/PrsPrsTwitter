@@ -31,8 +31,11 @@ function copyFromOverlay(tgt_elm) {
   let wk_elm;
   wk_elm = tgt_elm.getElementsByClassName('tweet-timestamp');
   if(wk_elm && wk_elm.length > 0) {
-    result.href = wk_elm[0].href;
-    result.time = parseTweetTime(wk_elm[0].title.trim());
+    result.href = wk_elm[0].href.trim();
+  }
+  wk_elm = tgt_elm.getElementsByClassName('_timestamp');
+  if(wk_elm && wk_elm.length > 0) {
+    result.time = parseTweetTime(wk_elm[0].getAttribute('data-time-ms').trim());
   }
   wk_elm = tgt_elm.getElementsByClassName('fullname');
   if(wk_elm && wk_elm.length > 0) {
@@ -50,23 +53,19 @@ function copyFromOverlay(tgt_elm) {
     result.time['day'] + ' ' +
     result.time['hour'] + ':' +
     result.time['minute'] + ' ' +
-    result.fullname + ':</a>' +
+    result.fullname + ':</a> ' +
     result.text + '</dt>';
   TO_CLIPBOARD = result_text;
-  //console.log(TO_CLIPBOARD);
-  //console.log(document.execCommand('copy', false, result_text));
 }
 
-function parseTweetTime(jp_str) {
-  //1:30 - 2017年9月30日
-  //data-time="1506188526" data-time-ms="1506188526000"
-  let wk = /([0-9]+):([0-9]+)[^0-9]+([0-9]+)年([0-9]+)月([0-9]+)日/.exec(jp_str);
+function parseTweetTime(milsec_txt) {
+  let wk = new Date(parseInt(milsec_txt));
   let result = {};
-  result.year = wk[3];
-  result.month = ('00' + wk[4]).slice(-2);
-  result.day = ('00' + wk[5]).slice(-2);
-  result.hour = ('00' + wk[1]).slice(-2);
-  result.minute = ('00' + wk[2]).slice(-2);
+  result.year = wk.getFullYear();
+  result.month = ('00' + (wk.getMonth() + 1)).slice(-2);
+  result.day = ('00' + wk.getDate()).slice(-2);
+  result.hour = ('00' + wk.getHours()).slice(-2);
+  result.minute = ('00' + wk.getMinutes()).slice(-2);
   return result;
 }
 
@@ -95,12 +94,6 @@ function handleKeydown(ev) {
         INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
         browser.runtime.sendMessage({'badge':'on'});
         IS_AUTO_UPDATE = true;
-      }
-      break;
-    case 67: //0x43 C
-      console.log(code + ':' + ev.ctrlKey);
-      if(ev.ctrlKey) {
-        console.log(window.getSelection().toString());
       }
       break;
     case 81: //0x51 Q
