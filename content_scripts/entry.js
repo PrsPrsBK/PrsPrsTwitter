@@ -23,10 +23,12 @@ function setTextForCopy() {
     if(wk_elm && wk_elm.length > 0) {
       copyFromOverlay(wk_elm[0]);
     }
+    return;
   }
   wk_elm = document.getElementsByClassName('selected-stream-item');
   if(wk_elm && wk_elm.length > 0) {
     copyFromOverlay(wk_elm[0]);
+    return;
   }
 }
 
