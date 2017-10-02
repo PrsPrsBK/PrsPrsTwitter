@@ -53,8 +53,8 @@ function copyOverlay(tgt_elm) {
     result.fullname + ':</a>' +
     result.text + '</dt>';
   TO_CLIPBOARD = result_text;
-  console.log(TO_CLIPBOARD);
-  console.log(document.execCommand('copy', false, result_text));
+  //console.log(TO_CLIPBOARD);
+  //console.log(document.execCommand('copy', false, result_text));
 }
 
 function parseTweetTime(jp_str) {
@@ -73,12 +73,16 @@ function parseTweetTime(jp_str) {
 function onCopy(ev) {
   console.log('onCopy start');
   console.log(TO_CLIPBOARD);
-  ev.preventDefault();
-  let transfer = ev.clipboardData;
-  console.log('onCopy transfer');
-  if(TO_CLIPBOARD !== '') {
-    transfer.setData('text/plain', TO_CLIPBOARD);
-    //TO_CLIPBOARD = '';
+  if(window.getSelection().toString() === '') {
+    copyTweet();
+    console.log(TO_CLIPBOARD);
+    ev.preventDefault();
+    let transfer = ev.clipboardData;
+    console.log('onCopy transfer');
+    if(TO_CLIPBOARD !== '') {
+      transfer.setData('text/plain', TO_CLIPBOARD);
+      TO_CLIPBOARD = '';
+    }
   }
 }
 
@@ -97,9 +101,9 @@ function handleKeydown(ev) {
       console.log(code + ':' + ev.ctrlKey);
       if(ev.ctrlKey) {
         console.log(window.getSelection().toString());
-        if(window.getSelection().toString() === '') {
-          copyTweet();
-        }
+        //if(window.getSelection().toString() === '') {
+        //  copyTweet();
+        //}
       }
       break;
     case 81: //0x51 Q
