@@ -24,6 +24,10 @@ function setTextForCopy() {
       copyFromOverlay(wk_elm[0]);
     }
   }
+  wk_elm = document.getElementsByClassName('selected-stream-item');
+  if(wk_elm && wk_elm.length > 0) {
+    copyFromOverlay(wk_elm[0]);
+  }
 }
 
 function copyFromOverlay(tgt_elm) {
