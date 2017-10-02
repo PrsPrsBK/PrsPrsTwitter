@@ -76,10 +76,10 @@ function onCopy(ev) {
   if(window.getSelection().toString() === '') {
     copyTweet();
     console.log(TO_CLIPBOARD);
-    ev.preventDefault();
-    let transfer = ev.clipboardData;
-    console.log('onCopy transfer');
     if(TO_CLIPBOARD !== '') {
+      ev.preventDefault();
+      let transfer = ev.clipboardData;
+      console.log('onCopy transfer');
       transfer.setData('text/plain', TO_CLIPBOARD);
       TO_CLIPBOARD = '';
     }
