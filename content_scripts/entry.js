@@ -19,7 +19,10 @@ function copyTweet() {
   let wk_elm;
   wk_elm = document.getElementById('permalink-overlay-dialog');
   if(wk_elm) {
-    copyOverlay(wk_elm);
+    wk_elm = wk_elm.getElementsByClassName('permalink-tweet-container');
+    if(wk_elm && wk_elm.length > 0) {
+      copyOverlay(wk_elm[0]);
+    }
   }
 }
 
