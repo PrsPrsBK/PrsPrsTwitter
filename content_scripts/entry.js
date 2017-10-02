@@ -15,18 +15,18 @@ function clickUpdateButton() {
   }
 }
 
-function copyTweet() {
+function setTextForCopy() {
   let wk_elm;
   wk_elm = document.getElementById('permalink-overlay-dialog');
   if(wk_elm) {
     wk_elm = wk_elm.getElementsByClassName('permalink-tweet-container');
     if(wk_elm && wk_elm.length > 0) {
-      copyOverlay(wk_elm[0]);
+      copyFromOverlay(wk_elm[0]);
     }
   }
 }
 
-function copyOverlay(tgt_elm) {
+function copyFromOverlay(tgt_elm) {
   let result = {};
   let wk_elm;
   wk_elm = tgt_elm.getElementsByClassName('tweet-timestamp');
@@ -74,7 +74,7 @@ function onCopy(ev) {
   console.log('onCopy start');
   console.log(TO_CLIPBOARD);
   if(window.getSelection().toString() === '') {
-    copyTweet();
+    setTextForCopy();
     console.log(TO_CLIPBOARD);
     if(TO_CLIPBOARD !== '') {
       ev.preventDefault();
@@ -101,9 +101,6 @@ function handleKeydown(ev) {
       console.log(code + ':' + ev.ctrlKey);
       if(ev.ctrlKey) {
         console.log(window.getSelection().toString());
-        //if(window.getSelection().toString() === '') {
-        //  copyTweet();
-        //}
       }
       break;
     case 81: //0x51 Q
