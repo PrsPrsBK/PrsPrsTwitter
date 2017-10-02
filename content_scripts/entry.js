@@ -17,8 +17,8 @@ function clickUpdateButton() {
 
 function setTextForCopy() {
   let wk_elm;
-  wk_elm = document.getElementById('permalink-overlay-dialog');
-  if(wk_elm) {
+  wk_elm = document.getElementById('permalink-overlay');
+  if(wk_elm && wk_elm.style.display === 'block') {
     wk_elm = wk_elm.getElementsByClassName('permalink-tweet-container');
     if(wk_elm && wk_elm.length > 0) {
       copyFromOverlay(wk_elm[0]);
