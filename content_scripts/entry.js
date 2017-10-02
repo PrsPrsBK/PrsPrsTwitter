@@ -1,6 +1,7 @@
 var IS_AUTO_UPDATE = true;
 var INTERVAL_ID;
 var CHECK_INTERVAL = 15000;
+var TO_CLIPBOARD = '';
 
 /*
 clickUpdateButton():
@@ -38,7 +39,7 @@ function copyOverlay(tgt_elm) {
   if(wk_elm && wk_elm.length > 0) {
     result.text = wk_elm[0].textContent.trim();
   }
-  console.log(result);
+  //console.log(result);
   let result_text = '<dt><a href="' +
     result.href + '">' +
     result.time['year'] + '-' +
@@ -48,7 +49,9 @@ function copyOverlay(tgt_elm) {
     result.time['minute'] + ' ' +
     result.fullname + ':</a>' +
     result.text + '</dt>';
-  console.log(result_text);
+  TO_CLIPBOARD = result_text;
+  console.log(TO_CLIPBOARD);
+  console.log(document.execCommand('copy', false, result_text));
 }
 
 function parseTweetTime(jp_str) {
@@ -62,6 +65,18 @@ function parseTweetTime(jp_str) {
   result.hour = ('00' + wk[1]).slice(-2);
   result.minute = ('00' + wk[2]).slice(-2);
   return result;
+}
+
+function onCopy(ev) {
+  console.log('onCopy start');
+  console.log(TO_CLIPBOARD);
+  ev.preventDefault();
+  let transfer = ev.clipboardData;
+  console.log('onCopy transfer');
+  if(TO_CLIPBOARD !== '') {
+    transfer.setData('text/plain', TO_CLIPBOARD);
+    //TO_CLIPBOARD = '';
+  }
 }
 
 function handleKeydown(ev) {
@@ -97,6 +112,7 @@ function handleKeydown(ev) {
 
 function start() {
   document.addEventListener('keydown', handleKeydown);
+  document.addEventListener('copy', onCopy);
   INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
 };
 

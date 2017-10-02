@@ -10,6 +10,9 @@ browser.browserAction.onClicked.addListener((tab) => {
 
 browser.runtime.onMessage.addListener((message) => {
   console.log('at bs onMessage');
+  if(message.console !== undefined) {
+    console.log(message.console);
+  }
   if(message.badge === 'on') {
     browser.browserAction.setBadgeText({'text': BADGETXT_ON});
   }

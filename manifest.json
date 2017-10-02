@@ -30,6 +30,7 @@
   ],
 
   "permissions":[
+    "clipboardWrite",
     "tabs"
   ]
 
