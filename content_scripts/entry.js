@@ -16,20 +16,52 @@ function clickUpdateButton() {
 }
 
 function setTextForCopy() {
+  console.log('setTextForCopy');
   let wk_elm;
   wk_elm = document.getElementById('permalink-overlay');
-  if(wk_elm && wk_elm.style.display === 'block') {
+  console.log('setTextForCopy1');
+  if(wk_elm &&
+    (wk_elm.style === undefined
+      || (wk_elm.style !== undefined && wk_elm.style.display === undefined)
+      || wk_elm.style.display === 'block')) {
+    console.log('go permalink0');
     wk_elm = wk_elm.getElementsByClassName('permalink-tweet-container');
     if(wk_elm && wk_elm.length > 0) {
+      console.log('go permalink1');
       copyFromOverlay(wk_elm[0]);
     }
     return;
   }
+  console.log('setTextForCopy2');
   wk_elm = document.getElementsByClassName('selected-stream-item');
+  console.log('setTextForCopy3');
   if(wk_elm && wk_elm.length > 0) {
+    console.log('go stream-item');
     copyFromOverlay(wk_elm[0]);
     return;
   }
+}
+
+function getQuoteTweetText(tgt_elm) {
+  let ret = '';
+  let wk_elm;
+  wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-link');
+  if(wk_elm && wk_elm.length > 0) {
+    console.log('scrape1');
+    let wk = ' <a href="' +
+      wk_elm[0].href +
+      '">';
+    wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-fullname');
+    if(wk_elm && wk_elm.length > 0) {
+      wk += wk_elm[0].textContent.trim() + ': ';
+    }
+    wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-text');
+    if(wk_elm && wk_elm.length > 0) {
+      wk += wk_elm[0].textContent.trim() + '</a>';
+    }
+    ret += wk;
+  }
+  return ret;
 }
 
 function copyFromOverlay(tgt_elm) {
@@ -37,19 +69,30 @@ function copyFromOverlay(tgt_elm) {
   let wk_elm;
   wk_elm = tgt_elm.getElementsByClassName('tweet-timestamp');
   if(wk_elm && wk_elm.length > 0) {
+    console.log(1);
     result.href = wk_elm[0].href.trim();
   }
   wk_elm = tgt_elm.getElementsByClassName('_timestamp');
   if(wk_elm && wk_elm.length > 0) {
+    console.log(2);
     result.time = parseTweetTime(wk_elm[0].getAttribute('data-time-ms').trim());
   }
   wk_elm = tgt_elm.getElementsByClassName('fullname');
   if(wk_elm && wk_elm.length > 0) {
+    console.log(3);
     result.fullname = wk_elm[0].textContent.trim();
   }
   wk_elm = tgt_elm.getElementsByClassName('tweet-text');
   if(wk_elm && wk_elm.length > 0) {
+    console.log(4);
     result.text = wk_elm[0].textContent.trim();
+    let quoteTweetText = getQuoteTweetText(tgt_elm);
+    if(quoteTweetText !== '') {
+      console.log('add quote');
+      //result.text = result.text.replace(/(.+)(https:\/\/twitter\.com\/ … )$/, '$1');
+      result.text = result.text.replace(/(.+)(https:\/\/twitter\.com\/.+)$/, '$1');
+      result.text += quoteTweetText;
+    }
   }
   //console.log(result);
   let result_text = '<dt><a href="' +
@@ -114,6 +157,7 @@ function handleKeydown(ev) {
 };
 
 function start() {
+  console.log(window.location.href);
   document.addEventListener('keydown', handleKeydown);
   document.addEventListener('copy', onCopy);
   INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
