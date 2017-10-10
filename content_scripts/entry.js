@@ -23,7 +23,8 @@ function setTextForCopy() {
   if(wk_elm &&
     (wk_elm.style === undefined
       || (wk_elm.style !== undefined && wk_elm.style.display === undefined)
-      || wk_elm.style.display === 'block')) {
+      || wk_elm.style.display === 'block'
+      || wk_elm.style.opacity === 1)) {
     console.log('go permalink0');
     wk_elm = wk_elm.getElementsByClassName('permalink-tweet-container');
     if(wk_elm && wk_elm.length > 0) {
