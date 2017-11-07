@@ -136,29 +136,47 @@ function onCopy(ev) {
 }
 
 function handleKeydown(ev) {
-  var code = ev.keyCode;
+  let code = ev.keyCode;
   switch(code) {
+    case 53:
+      break;
     case 65: //0x41 A
-      console.log(code + ':' + ev.ctrlKey);
+      console.debug(code + ':' + ev.ctrlKey);
       if(IS_AUTO_UPDATE === false) {
         INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
         browser.runtime.sendMessage({'badge':'on'});
         IS_AUTO_UPDATE = true;
       }
       break;
+    case 66: //0x42 B
+      console.debug(code + ':' + ev.ctrlKey);
+      preventKeydown(ev);
+      break;
     case 81: //0x51 Q
-      console.log(code + ':' + ev.ctrlKey);
+      console.debug(code + ':' + ev.ctrlKey);
       if(IS_AUTO_UPDATE) {
         clearInterval(INTERVAL_ID);
         browser.runtime.sendMessage({'badge':'off'});
         IS_AUTO_UPDATE = false;
       }
       break;
+    case 85: //0x55 U
+      preventKeydown(ev);
+      break;
   }
-};
+}
+
+function preventKeydown(evt) {
+  if(evt.target.isContentEditable
+    || evt.target.nodeName.toUpperCase() === "INPUT"
+    || evt.target.nodeName.toUpperCase() === "TEXTAREA") {
+    return;
+  }
+  evt.preventDefault();
+}
 
 function start() {
-  console.log(window.location.href);
+  console.debug(window.location.href);
   document.addEventListener('keydown', handleKeydown);
   document.addEventListener('copy', onCopy);
   INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
