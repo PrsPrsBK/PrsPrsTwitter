@@ -2,6 +2,7 @@ var IS_AUTO_UPDATE = true;
 var INTERVAL_ID;
 var CHECK_INTERVAL = 15000;
 var TO_CLIPBOARD = '';
+var operationCount = 1;
 
 /*
 clickUpdateButton():
@@ -135,13 +136,22 @@ function onCopy(ev) {
   }
 }
 
-function handleKeydown(ev) {
-  let code = ev.keyCode;
+function handleKeydown(evt) {
+  let code = evt.keyCode;
   switch(code) {
+    case 49:
+    case 50:
+    case 51:
+    case 52:
     case 53:
+    case 54:
+    case 55:
+    case 56:
+    case 57:
+      setOptionCount(evt);
       break;
     case 65: //0x41 A
-      console.debug(code + ':' + ev.ctrlKey);
+      console.debug(code + ':' + evt.ctrlKey);
       if(IS_AUTO_UPDATE === false) {
         INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
         browser.runtime.sendMessage({'badge':'on'});
@@ -149,11 +159,19 @@ function handleKeydown(ev) {
       }
       break;
     case 66: //0x42 B
-      console.debug(code + ':' + ev.ctrlKey);
-      preventKeydown(ev);
+      console.debug(code + ':' + evt.ctrlKey);
+      preventKeydown(evt);
+      break;
+    case 0x4A: //0x4A J
+      console.debug(code + ':' + evt.ctrlKey);
+      repeatKeydown(evt);
+      break;
+    case 0x4B: //0x4B K
+      console.debug(code + ':' + evt.ctrlKey);
+      repeatKeydown(evt);
       break;
     case 81: //0x51 Q
-      console.debug(code + ':' + ev.ctrlKey);
+      console.debug(code + ':' + evt.ctrlKey);
       if(IS_AUTO_UPDATE) {
         clearInterval(INTERVAL_ID);
         browser.runtime.sendMessage({'badge':'off'});
@@ -161,12 +179,22 @@ function handleKeydown(ev) {
       }
       break;
     case 85: //0x55 U
-      preventKeydown(ev);
+      preventKeydown(evt);
       break;
   }
 }
 
+function setOptionCount(evt) {
+  if(evt.target.isContentEditable
+    || evt.target.nodeName.toUpperCase() === "INPUT"
+    || evt.target.nodeName.toUpperCase() === "TEXTAREA") {
+    return;
+  }
+  operationCount = (evt.keyCode - 48);
+}
+
 function preventKeydown(evt) {
+  console.debug(code + ':' + evt.ctrlKey);
   if(evt.target.isContentEditable
     || evt.target.nodeName.toUpperCase() === "INPUT"
     || evt.target.nodeName.toUpperCase() === "TEXTAREA") {
@@ -175,12 +203,39 @@ function preventKeydown(evt) {
   evt.preventDefault();
 }
 
+function repeatKeydown(evt) {
+  console.log(operationCount);
+  console.log(evt.target.tagName + '__' + evt.target.className + '__' + evt.target.id);
+  if(operationCount > 1) {
+    operationCount--;
+    triggerKeydown(evt.keyCode);
+  } else {
+    operationCount = 1; //1 に念のためリセット
+  }
+}
+
+function triggerKeydown(keyCode) {
+  let evt = document.createEvent('HTMLEvents');
+  evt.keyCode = keyCode;
+  //evt.initEvent('keydown', false, true);
+  evt.initEvent('keydown', true, true);
+  //let elm = document.getElementsByClassName('js-stream-item');
+  //elm[0].dispatchEvent(evt);
+  //document undefined, document.body body
+  document.body.dispatchEvent(evt);
+}
+
+function getKeydownTarget() {
+  let elm = document.getElementsByClassName('js-stream-item');
+  return elm[0];
+}
+
 function start() {
   console.debug(window.location.href);
   document.addEventListener('keydown', handleKeydown);
   document.addEventListener('copy', onCopy);
   INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
-};
+}
 
 start();
 
