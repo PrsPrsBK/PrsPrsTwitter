@@ -208,21 +208,24 @@ function repeatKeydown(evt) {
   console.log(evt.target.tagName + '__' + evt.target.className + '__' + evt.target.id);
   if(operationCount > 1) {
     operationCount--;
-    triggerKeydown(evt.keyCode);
+    triggerKeydown(evt);
   } else {
     operationCount = 1; //1 に念のためリセット
   }
 }
 
-function triggerKeydown(keyCode) {
-  let evt = document.createEvent('HTMLEvents');
-  evt.keyCode = keyCode;
-  //evt.initEvent('keydown', false, true);
-  evt.initEvent('keydown', true, true);
+function triggerKeydown(evt) {
+  let newEvent = document.createEvent('HTMLEvents');
+  newEvent.keyCode = evt.keyCode;
+  newEvent.initEvent('keydown', true, true);
   //let elm = document.getElementsByClassName('js-stream-item');
-  //elm[0].dispatchEvent(evt);
-  //document undefined, document.body body
-  document.body.dispatchEvent(evt);
+  //elm[0].dispatchEvent(newEvent);
+  //document => undefined
+  //document.body => body
+  let timeline = document.getElementById('timeline');
+  //timeline.dispatchEvent(newEvent);
+  let selected = document.getElementsByClassName('selected-stream-item');
+  selected[0].dispatchEvent(newEvent);
 }
 
 function getKeydownTarget() {
@@ -232,7 +235,8 @@ function getKeydownTarget() {
 
 function start() {
   console.debug(window.location.href);
-  document.addEventListener('keydown', handleKeydown);
+  let timeline = document.getElementById('timeline');
+  timeline.addEventListener('keydown', handleKeydown);
   document.addEventListener('copy', onCopy);
   INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
 }
