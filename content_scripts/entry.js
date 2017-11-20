@@ -204,28 +204,52 @@ function preventKeydown(evt) {
 }
 
 function repeatKeydown(evt) {
+  if(evt.defaultPrevented) {
+    console.log('other handler processed');
+  }
   console.log(operationCount);
   console.log(evt.target.tagName + '__' + evt.target.className + '__' + evt.target.id);
   if(operationCount > 1) {
     operationCount--;
-    triggerKeydown(evt);
+    const mo = new MutationObserver((records) => {
+      for (const record of records){
+        console.log('record:' + record.target.className + '__' + record.attributeName);
+        console.log(record.addedNodes + '__' + record.removedNodes);
+      }
+      mo.disconnect();
+      triggerKeydown();
+    });
+    let selectedItem = document.getElementsByClassName('selected-stream-item');
+    //console.log(selectedItem.length + ' type ' + (typeof selectedItem[0]));
+    mo.observe(selectedItem[0], {
+      attributes: true
+      ,attributeFilter: ['class']
+    });
   } else {
     operationCount = 1; //1 に念のためリセット
   }
 }
 
-function triggerKeydown(evt) {
+function triggerKeydown() {
   let newEvent = document.createEvent('HTMLEvents');
-  newEvent.keyCode = evt.keyCode;
-  newEvent.initEvent('keydown', true, true);
+  newEvent.keyCode = 0x4A;
+  newEvent.which = 0x4A;
+  newEvent.key = 'j';
+  newEvent.code = 'KeyJ';
+  newEvent.ctrlKey = false;
+  newEvent.fromShortcut = true;
+  newEvent.initEvent('keypress', true, true);
+  //newEvent.initEvent('keydown', false, true);
   //let elm = document.getElementsByClassName('js-stream-item');
   //elm[0].dispatchEvent(newEvent);
-  //document => undefined
+  //document => 初回以外は evt.target undefined
   //document.body => body
   let timeline = document.getElementById('timeline');
   //timeline.dispatchEvent(newEvent);
   let selected = document.getElementsByClassName('selected-stream-item');
+  console.log('selected[0]:' + selected[0].tagName + '__' + selected[0].className + '__' + selected[0].id);
   selected[0].dispatchEvent(newEvent);
+  //document.dispatchEvent(newEvent);
 }
 
 function getKeydownTarget() {
@@ -235,8 +259,15 @@ function getKeydownTarget() {
 
 function start() {
   console.debug(window.location.href);
-  let timeline = document.getElementById('timeline');
-  timeline.addEventListener('keydown', handleKeydown);
+  //let timeline = document.getElementById('timeline');
+  //if(timeline !== null) {
+  //  timeline.addEventListener('keydown', handleKeydown);
+  //}
+  //else {
+  //  document.addEventListener('keydown', handleKeydown);
+  //}
+  //document.addEventListener('keydown', handleKeydown);
+  document.addEventListener('keypress', handleKeydown);
   document.addEventListener('copy', onCopy);
   INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
 }
