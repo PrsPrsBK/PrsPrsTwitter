@@ -147,7 +147,6 @@ function handleKeydown(evt) {
     case 54:
     case 55:
     case 56:
-    case 57:
       setOptionCount(evt);
       break;
     case 65: //0x41 A
@@ -162,6 +161,8 @@ function handleKeydown(evt) {
       console.debug(code + ':' + evt.ctrlKey);
       preventKeydown(evt);
       break;
+    case 57:
+    case 0x6A: //0x4A J
     case 0x4A: //0x4A J
       console.debug(code + ':' + evt.ctrlKey);
       repeatKeydown(evt);
@@ -232,11 +233,23 @@ function repeatKeydown(evt) {
 
 function triggerKeydown() {
   let newEvent = document.createEvent('HTMLEvents');
-  newEvent.keyCode = 0x4A;
-  newEvent.which = 0x4A;
   newEvent.key = 'j';
   newEvent.code = 'KeyJ';
+  newEvent.keyCode = 106;
+  newEvent.charCode = 106;
+  newEvent.which = 106;
+  newEvent.altKey = false;
   newEvent.ctrlKey = false;
+  newEvent.metaKey = false;
+  newEvent.location = 0;
+  newEvent.repeat = false;
+  newEvent.returnValue = false;
+  newEvent.bubbles = true;
+  newEvent.cancelBubble = false;
+  newEvent.cancelable = true;
+  newEvent.composed = true;
+  newEvent.isComposing = false;
+  newEvent.isTrusted = true;
   newEvent.fromShortcut = true;
   newEvent.initEvent('keypress', true, true);
   //newEvent.initEvent('keydown', false, true);
