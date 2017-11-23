@@ -2,7 +2,6 @@ var IS_AUTO_UPDATE = true;
 var INTERVAL_ID;
 var CHECK_INTERVAL = 15000;
 var TO_CLIPBOARD = '';
-var operationCount = 1;
 
 /*
 clickUpdateButton():
@@ -139,16 +138,6 @@ function onCopy(ev) {
 function handleKeydown(evt) {
   let code = evt.keyCode;
   switch(code) {
-    case 49:
-    case 50:
-    case 51:
-    case 52:
-    case 53:
-    case 54:
-    case 55:
-    case 56:
-      setOptionCount(evt);
-      break;
     case 65: //0x41 A
       console.debug(code + ':' + evt.ctrlKey);
       if(IS_AUTO_UPDATE === false) {
@@ -160,16 +149,6 @@ function handleKeydown(evt) {
     case 66: //0x42 B
       console.debug(code + ':' + evt.ctrlKey);
       preventKeydown(evt);
-      break;
-    case 57:
-    case 0x6A: //0x4A J
-    case 0x4A: //0x4A J
-      console.debug(code + ':' + evt.ctrlKey);
-      repeatKeydown(evt);
-      break;
-    case 0x4B: //0x4B K
-      console.debug(code + ':' + evt.ctrlKey);
-      repeatKeydown(evt);
       break;
     case 81: //0x51 Q
       console.debug(code + ':' + evt.ctrlKey);
@@ -185,15 +164,6 @@ function handleKeydown(evt) {
   }
 }
 
-function setOptionCount(evt) {
-  if(evt.target.isContentEditable
-    || evt.target.nodeName.toUpperCase() === "INPUT"
-    || evt.target.nodeName.toUpperCase() === "TEXTAREA") {
-    return;
-  }
-  operationCount = (evt.keyCode - 48);
-}
-
 function preventKeydown(evt) {
   console.debug(code + ':' + evt.ctrlKey);
   if(evt.target.isContentEditable
@@ -204,83 +174,9 @@ function preventKeydown(evt) {
   evt.preventDefault();
 }
 
-function repeatKeydown(evt) {
-  if(evt.defaultPrevented) {
-    console.log('other handler processed');
-  }
-  console.log(operationCount);
-  console.log(evt.target.tagName + '__' + evt.target.className + '__' + evt.target.id);
-  if(operationCount > 1) {
-    operationCount--;
-    const mo = new MutationObserver((records) => {
-      for (const record of records){
-        console.log('record:' + record.target.className + '__' + record.attributeName);
-        console.log(record.addedNodes + '__' + record.removedNodes);
-      }
-      mo.disconnect();
-      triggerKeydown();
-    });
-    let selectedItem = document.getElementsByClassName('selected-stream-item');
-    //console.log(selectedItem.length + ' type ' + (typeof selectedItem[0]));
-    mo.observe(selectedItem[0], {
-      attributes: true
-      ,attributeFilter: ['class']
-    });
-  } else {
-    operationCount = 1; //1 に念のためリセット
-  }
-}
-
-function triggerKeydown() {
-  let newEvent = document.createEvent('HTMLEvents');
-  newEvent.key = 'j';
-  newEvent.code = 'KeyJ';
-  newEvent.keyCode = 106;
-  newEvent.charCode = 106;
-  newEvent.which = 106;
-  newEvent.altKey = false;
-  newEvent.ctrlKey = false;
-  newEvent.metaKey = false;
-  newEvent.location = 0;
-  newEvent.repeat = false;
-  newEvent.returnValue = false;
-  newEvent.bubbles = true;
-  newEvent.cancelBubble = false;
-  newEvent.cancelable = true;
-  newEvent.composed = true;
-  newEvent.isComposing = false;
-  newEvent.isTrusted = true;
-  newEvent.fromShortcut = true;
-  newEvent.initEvent('keypress', true, true);
-  //newEvent.initEvent('keydown', false, true);
-  //let elm = document.getElementsByClassName('js-stream-item');
-  //elm[0].dispatchEvent(newEvent);
-  //document => 初回以外は evt.target undefined
-  //document.body => body
-  let timeline = document.getElementById('timeline');
-  //timeline.dispatchEvent(newEvent);
-  let selected = document.getElementsByClassName('selected-stream-item');
-  console.log('selected[0]:' + selected[0].tagName + '__' + selected[0].className + '__' + selected[0].id);
-  selected[0].dispatchEvent(newEvent);
-  //document.dispatchEvent(newEvent);
-}
-
-function getKeydownTarget() {
-  let elm = document.getElementsByClassName('js-stream-item');
-  return elm[0];
-}
-
 function start() {
   console.debug(window.location.href);
-  //let timeline = document.getElementById('timeline');
-  //if(timeline !== null) {
-  //  timeline.addEventListener('keydown', handleKeydown);
-  //}
-  //else {
-  //  document.addEventListener('keydown', handleKeydown);
-  //}
-  //document.addEventListener('keydown', handleKeydown);
-  document.addEventListener('keypress', handleKeydown);
+  document.addEventListener('keydown', handleKeydown);
   document.addEventListener('copy', onCopy);
   INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
 }
