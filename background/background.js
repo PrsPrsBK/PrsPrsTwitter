@@ -8,7 +8,7 @@ browser.browserAction.onClicked.addListener((tab) => {
   console.log('do nothing at '+ tab.url);
 });
 
-browser.runtime.onMessage.addListener((message) => {
+browser.runtime.onMessage.addListener((message, sender) => {
   console.log('at bs onMessage');
   if(message.console !== undefined) {
     console.log(message.console);
@@ -18,6 +18,10 @@ browser.runtime.onMessage.addListener((message) => {
   }
   else if(message.badge === 'off') {
     browser.browserAction.setBadgeText({'text': BADGETXT_OFF});
+  }
+  else if(message.pageAction === 'on') {
+    console.log(sender.tab.id + ' is sender');
+    browser.pageAction.show(sender.tab.id);
   }
 });
 

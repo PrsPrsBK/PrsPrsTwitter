@@ -174,8 +174,13 @@ function preventKeydown(evt) {
   evt.preventDefault();
 }
 
+function showPageAction() {
+  browser.runtime.sendMessage({'pageAction':'on'});
+}
+
 function start() {
   console.debug(window.location.href);
+  showPageAction();
   document.addEventListener('keydown', handleKeydown);
   document.addEventListener('copy', onCopy);
   INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
