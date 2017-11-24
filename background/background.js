@@ -1,4 +1,9 @@
 
+var global = (function(){return this})();
+if(!('browser' in global)) {
+  var browser = chrome;
+}
+
 browser.runtime.onMessage.addListener((message, sender) => {
   console.log('at bs onMessage');
   console.log(sender.tab.id + ' is sender');
