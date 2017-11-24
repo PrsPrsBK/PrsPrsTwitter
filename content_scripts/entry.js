@@ -161,7 +161,6 @@ function handleKeydown(evt) {
 }
 
 function preventKeydown(evt) {
-  console.debug(code + ':' + evt.ctrlKey);
   if(evt.target.isContentEditable
     || evt.target.nodeName.toUpperCase() === "INPUT"
     || evt.target.nodeName.toUpperCase() === "TEXTAREA") {
