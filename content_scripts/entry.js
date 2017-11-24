@@ -175,7 +175,12 @@ function preventKeydown(evt) {
 }
 
 function updatePageAction() {
-  browser.runtime.sendMessage({'pageAction': IS_AUTO_UPDATE ? 'on': 'off'});
+  if(browser) {
+    browser.runtime.sendMessage({'pageAction': IS_AUTO_UPDATE ? 'on': 'off'});
+  }
+  else {
+    chrome.runtime.sendMessage({'pageAction': IS_AUTO_UPDATE ? 'on': 'off'});
+  }
 }
 
 function start() {
