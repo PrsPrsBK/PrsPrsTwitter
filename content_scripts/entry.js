@@ -136,29 +136,25 @@ function onCopy(ev) {
 }
 
 function handleKeydown(evt) {
-  let code = evt.keyCode;
-  switch(code) {
-    case 65: //0x41 A
-      console.debug(code + ':' + evt.ctrlKey);
+  switch(evt.key) {
+    case 'a':
       if(IS_AUTO_UPDATE === false) {
         INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
         IS_AUTO_UPDATE = true;
         updatePageAction();
       }
       break;
-    case 66: //0x42 B
-      console.debug(code + ':' + evt.ctrlKey);
+    case 'b':
       preventKeydown(evt);
       break;
-    case 81: //0x51 Q
-      console.debug(code + ':' + evt.ctrlKey);
+    case 'q':
       if(IS_AUTO_UPDATE) {
         clearInterval(INTERVAL_ID);
         IS_AUTO_UPDATE = false;
         updatePageAction();
       }
       break;
-    case 85: //0x55 U
+    case 'u':
       preventKeydown(evt);
       break;
   }
