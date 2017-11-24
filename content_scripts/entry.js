@@ -142,8 +142,8 @@ function handleKeydown(evt) {
       console.debug(code + ':' + evt.ctrlKey);
       if(IS_AUTO_UPDATE === false) {
         INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
-        browser.runtime.sendMessage({'badge':'on'});
         IS_AUTO_UPDATE = true;
+        updatePageAction();
       }
       break;
     case 66: //0x42 B
@@ -154,8 +154,8 @@ function handleKeydown(evt) {
       console.debug(code + ':' + evt.ctrlKey);
       if(IS_AUTO_UPDATE) {
         clearInterval(INTERVAL_ID);
-        browser.runtime.sendMessage({'badge':'off'});
         IS_AUTO_UPDATE = false;
+        updatePageAction();
       }
       break;
     case 85: //0x55 U
@@ -174,13 +174,13 @@ function preventKeydown(evt) {
   evt.preventDefault();
 }
 
-function showPageAction() {
-  browser.runtime.sendMessage({'pageAction':'on'});
+function updatePageAction() {
+  browser.runtime.sendMessage({'pageAction': IS_AUTO_UPDATE ? 'on': 'off'});
 }
 
 function start() {
   console.debug(window.location.href);
-  showPageAction();
+  updatePageAction();
   document.addEventListener('keydown', handleKeydown);
   document.addEventListener('copy', onCopy);
   INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);

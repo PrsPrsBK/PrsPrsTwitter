@@ -1,26 +1,19 @@
-const BADGETXT_ON = 'on';
-const BADGETXT_OFF = 'off';
-console.log('background');
-browser.browserAction.setBadgeText({'text': BADGETXT_ON});
-browser.browserAction.setBadgeBackgroundColor({'color':'#00AAAA'});
-
-browser.browserAction.onClicked.addListener((tab) => {
-  console.log('do nothing at '+ tab.url);
-});
 
 browser.runtime.onMessage.addListener((message, sender) => {
   console.log('at bs onMessage');
-  if(message.console !== undefined) {
-    console.log(message.console);
+  console.log(sender.tab.id + ' is sender');
+  if(message.pageAction === 'on') {
+    browser.pageAction.setIcon({
+      tabId: sender.tab.id,
+      path: 'icons/icon.svg'
+    });
+    browser.pageAction.show(sender.tab.id);
   }
-  if(message.badge === 'on') {
-    browser.browserAction.setBadgeText({'text': BADGETXT_ON});
-  }
-  else if(message.badge === 'off') {
-    browser.browserAction.setBadgeText({'text': BADGETXT_OFF});
-  }
-  else if(message.pageAction === 'on') {
-    console.log(sender.tab.id + ' is sender');
+  else if(message.pageAction === 'off') {
+    browser.pageAction.setIcon({
+      tabId: sender.tab.id,
+      path: 'icons/icon-48.png'
+    });
     browser.pageAction.show(sender.tab.id);
   }
 });
