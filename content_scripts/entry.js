@@ -3,8 +3,7 @@ var INTERVAL_ID;
 var CHECK_INTERVAL = 15000;
 var TO_CLIPBOARD = '';
 
-var global = (function(){return this})();
-if(!('browser' in global)) {
+if(browser === null || browser === undefined) {
   var browser = chrome;
 }
 

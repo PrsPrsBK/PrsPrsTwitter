@@ -1,6 +1,5 @@
 
-var global = (function(){return this})();
-if(!('browser' in global)) {
+if(browser === null || browser === undefined) {
   var browser = chrome;
 }
 
@@ -10,14 +9,15 @@ browser.runtime.onMessage.addListener((message, sender) => {
   if(message.pageAction === 'on') {
     browser.pageAction.setIcon({
       tabId: sender.tab.id,
-      path: 'icons/icon.svg'
+      //path: 'icons/icon.svg'
+      path: 'icons/icon-on.png'
     });
     browser.pageAction.show(sender.tab.id);
   }
   else if(message.pageAction === 'off') {
     browser.pageAction.setIcon({
       tabId: sender.tab.id,
-      path: 'icons/icon-48.png'
+      path: 'icons/icon-off.png'
     });
     browser.pageAction.show(sender.tab.id);
   }
