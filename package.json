@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/PrsPrsBK/prsprstwitter/issues"
   },
-  "homepage": "https://github.com/PrsPrsBK/prsprstwitter#readme"
+  "homepage": "https://github.com/PrsPrsBK/prsprstwitter#readme",
+  "devDependencies": {
+    "eslint": "^4.11.0"
+  }
 }
