@@ -1,0 +1,23 @@
+{
+  "name": "prsprstwitter",
+  "version": "0.1.7",
+  "description": "Princess Princess Twitter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrsPrsBK/prsprstwitter.git"
+  },
+  "keywords": [
+    "WebExtensions",
+    "twitter"
+  ],
+  "author": "PrsPrsBK",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PrsPrsBK/prsprstwitter/issues"
+  },
+  "homepage": "https://github.com/PrsPrsBK/prsprstwitter#readme"
+}
