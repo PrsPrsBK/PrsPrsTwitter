@@ -7,47 +7,38 @@ if(browser === null || browser === undefined) {
   var browser = chrome;
 }
 
+const updatePageAction = function() {
+  if(browser) {
+    browser.runtime.sendMessage({'pageAction': IS_AUTO_UPDATE ? 'on': 'off'});
+  }
+  else {
+    chrome.runtime.sendMessage({'pageAction': IS_AUTO_UPDATE ? 'on': 'off'});
+  }
+};
+
 /*
 clickUpdateButton():
 * click update button.
 */
-function clickUpdateButton() {
-  let wk_elm;
-  wk_elm = document.getElementsByClassName('new-tweets-bar');
+const clickUpdateButton = function() {
+  const wk_elm = document.getElementsByClassName('new-tweets-bar');
   if(wk_elm && wk_elm.length > 0) {
     wk_elm[0].click();
   }
-}
+};
 
-function setTextForCopy() {
-  console.log('setTextForCopy');
-  let wk_elm;
-  wk_elm = document.getElementById('permalink-overlay');
-  console.log('setTextForCopy1');
-  if(wk_elm &&
-    (wk_elm.style === undefined
-      || (wk_elm.style !== undefined && wk_elm.style.display === undefined)
-      || wk_elm.style.display === 'block'
-      || wk_elm.style.opacity === 1)) {
-    console.log('go permalink0');
-    wk_elm = wk_elm.getElementsByClassName('permalink-tweet-container');
-    if(wk_elm && wk_elm.length > 0) {
-      console.log('go permalink1');
-      copyFromOverlay(wk_elm[0]);
-    }
-    return;
-  }
-  console.log('setTextForCopy2');
-  wk_elm = document.getElementsByClassName('selected-stream-item');
-  console.log('setTextForCopy3');
-  if(wk_elm && wk_elm.length > 0) {
-    console.log('go stream-item');
-    copyFromOverlay(wk_elm[0]);
-    return;
-  }
-}
+const parseTweetTime = function(milsec_txt) {
+  const wk = new Date(parseInt(milsec_txt));
+  const result = {};
+  result.year = wk.getFullYear();
+  result.month = ('00' + (wk.getMonth() + 1)).slice(-2);
+  result.day = ('00' + wk.getDate()).slice(-2);
+  result.hour = ('00' + wk.getHours()).slice(-2);
+  result.minute = ('00' + wk.getMinutes()).slice(-2);
+  return result;
+};
 
-function getQuoteTweetText(tgt_elm) {
+const getQuoteTweetText = function(tgt_elm) {
   let ret = '';
   let wk_elm;
   wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-link');
@@ -67,9 +58,9 @@ function getQuoteTweetText(tgt_elm) {
     ret += wk;
   }
   return ret;
-}
+};
 
-function copyFromOverlay(tgt_elm) {
+const copyFromOverlay= function(tgt_elm) {
   const result = {};
   let wk_elm;
   wk_elm = tgt_elm.getElementsByClassName('tweet-timestamp');
@@ -110,20 +101,37 @@ function copyFromOverlay(tgt_elm) {
     result.fullname + ':</a> ' +
     result.text + '</dt>';
   TO_CLIPBOARD = result_text;
-}
+};
 
-function parseTweetTime(milsec_txt) {
-  const wk = new Date(parseInt(milsec_txt));
-  const result = {};
-  result.year = wk.getFullYear();
-  result.month = ('00' + (wk.getMonth() + 1)).slice(-2);
-  result.day = ('00' + wk.getDate()).slice(-2);
-  result.hour = ('00' + wk.getHours()).slice(-2);
-  result.minute = ('00' + wk.getMinutes()).slice(-2);
-  return result;
-}
+const setTextForCopy = function() {
+  console.log('setTextForCopy');
+  let wk_elm;
+  wk_elm = document.getElementById('permalink-overlay');
+  console.log('setTextForCopy1');
+  if(wk_elm &&
+    (wk_elm.style === undefined
+      || (wk_elm.style !== undefined && wk_elm.style.display === undefined)
+      || wk_elm.style.display === 'block'
+      || wk_elm.style.opacity === 1)) {
+    console.log('go permalink0');
+    wk_elm = wk_elm.getElementsByClassName('permalink-tweet-container');
+    if(wk_elm && wk_elm.length > 0) {
+      console.log('go permalink1');
+      copyFromOverlay(wk_elm[0]);
+    }
+    return;
+  }
+  console.log('setTextForCopy2');
+  wk_elm = document.getElementsByClassName('selected-stream-item');
+  console.log('setTextForCopy3');
+  if(wk_elm && wk_elm.length > 0) {
+    console.log('go stream-item');
+    copyFromOverlay(wk_elm[0]);
+    return;
+  }
+};
 
-function onCopy(ev) {
+const onCopy = function(ev) {
   console.log('onCopy start');
   console.log(TO_CLIPBOARD);
   if(window.getSelection().toString() === '') {
@@ -137,9 +145,18 @@ function onCopy(ev) {
       TO_CLIPBOARD = '';
     }
   }
-}
+};
 
-function handleKeydown(evt) {
+const preventKeydown = function(evt) {
+  if(evt.target.isContentEditable
+    || evt.target.nodeName.toUpperCase() === 'INPUT'
+    || evt.target.nodeName.toUpperCase() === 'TEXTAREA') {
+    return;
+  }
+  evt.preventDefault();
+};
+
+const handleKeydown = function(evt) {
   switch(evt.key) {
     case 'a':
       if(IS_AUTO_UPDATE === false) {
@@ -162,33 +179,15 @@ function handleKeydown(evt) {
       preventKeydown(evt);
       break;
   }
-}
+};
 
-function preventKeydown(evt) {
-  if(evt.target.isContentEditable
-    || evt.target.nodeName.toUpperCase() === 'INPUT'
-    || evt.target.nodeName.toUpperCase() === 'TEXTAREA') {
-    return;
-  }
-  evt.preventDefault();
-}
-
-function updatePageAction() {
-  if(browser) {
-    browser.runtime.sendMessage({'pageAction': IS_AUTO_UPDATE ? 'on': 'off'});
-  }
-  else {
-    chrome.runtime.sendMessage({'pageAction': IS_AUTO_UPDATE ? 'on': 'off'});
-  }
-}
-
-function start() {
+const start = function() {
   console.debug(window.location.href);
   updatePageAction();
   document.addEventListener('keydown', handleKeydown);
   document.addEventListener('copy', onCopy);
   INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
-}
+};
 
 start();
 
