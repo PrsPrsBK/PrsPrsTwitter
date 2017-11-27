@@ -70,7 +70,7 @@ function getQuoteTweetText(tgt_elm) {
 }
 
 function copyFromOverlay(tgt_elm) {
-  let result = {};
+  const result = {};
   let wk_elm;
   wk_elm = tgt_elm.getElementsByClassName('tweet-timestamp');
   if(wk_elm && wk_elm.length > 0) {
@@ -91,7 +91,7 @@ function copyFromOverlay(tgt_elm) {
   if(wk_elm && wk_elm.length > 0) {
     console.log(4);
     result.text = wk_elm[0].textContent.trim();
-    let quoteTweetText = getQuoteTweetText(tgt_elm);
+    const quoteTweetText = getQuoteTweetText(tgt_elm);
     if(quoteTweetText !== '') {
       console.log('add quote');
       //result.text = result.text.replace(/(.+)(https:\/\/twitter\.com\/ … )$/, '$1');
@@ -100,7 +100,7 @@ function copyFromOverlay(tgt_elm) {
     }
   }
   //console.log(result);
-  let result_text = '<dt><a href="' +
+  const result_text = '<dt><a href="' +
     result.href + '">' +
     result.time['year'] + '-' +
     result.time['month'] + '-' +
@@ -113,8 +113,8 @@ function copyFromOverlay(tgt_elm) {
 }
 
 function parseTweetTime(milsec_txt) {
-  let wk = new Date(parseInt(milsec_txt));
-  let result = {};
+  const wk = new Date(parseInt(milsec_txt));
+  const result = {};
   result.year = wk.getFullYear();
   result.month = ('00' + (wk.getMonth() + 1)).slice(-2);
   result.day = ('00' + wk.getDate()).slice(-2);
@@ -131,7 +131,7 @@ function onCopy(ev) {
     console.log(TO_CLIPBOARD);
     if(TO_CLIPBOARD !== '') {
       ev.preventDefault();
-      let transfer = ev.clipboardData;
+      const transfer = ev.clipboardData;
       console.log('onCopy transfer');
       transfer.setData('text/plain', TO_CLIPBOARD);
       TO_CLIPBOARD = '';
