@@ -166,8 +166,8 @@ function handleKeydown(evt) {
 
 function preventKeydown(evt) {
   if(evt.target.isContentEditable
-    || evt.target.nodeName.toUpperCase() === "INPUT"
-    || evt.target.nodeName.toUpperCase() === "TEXTAREA") {
+    || evt.target.nodeName.toUpperCase() === 'INPUT'
+    || evt.target.nodeName.toUpperCase() === 'TEXTAREA') {
     return;
   }
   evt.preventDefault();
