@@ -25,6 +25,22 @@ module.exports = {
         "no-console": [
             "error",
             {"allow": ["log", "debug"]}
+        ],
+        "func-style": [
+            "error",
+            "expression",
+            {"allowArrowFunctions": true}
+        ],
+        "no-use-before-define": [
+            "error",
+            {"functions": true,
+             "classes": true,
+             "variables": true}
+        ],
+        "prefer-const": [
+            "error", {
+              "ignoreReadBeforeAssign": true
+            }
         ]
     }
 };
