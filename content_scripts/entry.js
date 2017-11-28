@@ -184,6 +184,7 @@ const handleKeydown = function(evt) {
 const start = function() {
   console.debug(window.location.href);
   updatePageAction();
+  //DOMContentLoaded and load Event can be listend on capturing phase. not bubbling phase.
   document.addEventListener('keydown', handleKeydown);
   document.addEventListener('copy', onCopy);
   INTERVAL_ID = setInterval(clickUpdateButton, CHECK_INTERVAL);
