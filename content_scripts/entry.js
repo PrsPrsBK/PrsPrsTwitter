@@ -41,9 +41,7 @@ const getQuoteTweetText = function(tgt_elm) {
   wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-link');
   if(wk_elm && wk_elm.length > 0) {
     console.log('scrape1');
-    let wk = ' <a href="' +
-      wk_elm[0].href +
-      '">';
+    let wk = ` <a href="${wk_elm[0].href}">`;
     wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-fullname');
     if(wk_elm && wk_elm.length > 0) {
       wk += wk_elm[0].textContent.trim() + ':</a> ';
@@ -102,6 +100,7 @@ const copyFromOverlay= function(tgt_elm) {
 
 const setTextForCopy = function() {
   console.log('setTextForCopy');
+  let ret = '';
   let wk_elm;
   wk_elm = document.getElementById('permalink-overlay');
   console.log('setTextForCopy1');
@@ -114,18 +113,19 @@ const setTextForCopy = function() {
     wk_elm = wk_elm.getElementsByClassName('permalink-tweet-container');
     if(wk_elm && wk_elm.length > 0) {
       console.log('go permalink1');
-      copyFromOverlay(wk_elm[0]);
+      ret = copyFromOverlay(wk_elm[0]);
     }
-    return;
+    return ret;
   }
   console.log('setTextForCopy2');
   wk_elm = document.getElementsByClassName('selected-stream-item');
   console.log('setTextForCopy3');
   if(wk_elm && wk_elm.length > 0) {
     console.log('go stream-item');
-    copyFromOverlay(wk_elm[0]);
-    return;
+    ret = copyFromOverlay(wk_elm[0]);
+    return ret;
   }
+  return ret;
 };
 
 const onCopy = function(ev) {
