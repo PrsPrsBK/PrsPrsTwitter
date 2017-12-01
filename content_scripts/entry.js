@@ -4,7 +4,6 @@
 let IS_AUTO_UPDATE = true;
 let INTERVAL_ID;
 const CHECK_INTERVAL = 15000;
-let TO_CLIPBOARD = '';
 
 if(typeof browser === 'undefined') {
   window.browser = window.chrome;
@@ -98,7 +97,7 @@ const copyFromOverlay= function(tgt_elm) {
     result.time['minute'] + ' ' +
     result.fullname + ':</a> ' +
     result.text + '</dt>';
-  TO_CLIPBOARD = result_text;
+  return result_text;
 };
 
 const setTextForCopy = function() {
@@ -131,16 +130,14 @@ const setTextForCopy = function() {
 
 const onCopy = function(ev) {
   console.log('onCopy start');
-  console.log(TO_CLIPBOARD);
   if(window.getSelection().toString() === '') {
-    setTextForCopy();
-    console.log(TO_CLIPBOARD);
-    if(TO_CLIPBOARD !== '') {
+    const outputText = setTextForCopy();
+    console.log(outputText);
+    if(outputText !== '') {
       ev.preventDefault();
       const transfer = ev.clipboardData;
       console.log('onCopy transfer');
-      transfer.setData('text/plain', TO_CLIPBOARD);
-      TO_CLIPBOARD = '';
+      transfer.setData('text/plain', outputText);
     }
   }
 };
