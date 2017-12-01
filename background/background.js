@@ -1,6 +1,6 @@
 
-if(browser === null || browser === undefined) {
-  var browser = chrome;
+if(typeof browser === 'undefined') {
+  window.browser = window.chrome;
 }
 
 browser.runtime.onMessage.addListener((message, sender) => {

@@ -3,17 +3,12 @@ var INTERVAL_ID;
 var CHECK_INTERVAL = 15000;
 var TO_CLIPBOARD = '';
 
-if(browser === null || browser === undefined) {
-  var browser = chrome;
+if(typeof browser === 'undefined') {
+  window.browser = window.chrome;
 }
 
 const updatePageAction = function() {
-  if(browser) {
-    browser.runtime.sendMessage({'pageAction': IS_AUTO_UPDATE ? 'on': 'off'});
-  }
-  else {
-    chrome.runtime.sendMessage({'pageAction': IS_AUTO_UPDATE ? 'on': 'off'});
-  }
+  browser.runtime.sendMessage({'pageAction': IS_AUTO_UPDATE ? 'on': 'off'});
 };
 
 /*
