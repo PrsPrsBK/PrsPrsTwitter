@@ -47,11 +47,11 @@ const getQuoteTweetText = function(tgt_elm) {
       '">';
     wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-fullname');
     if(wk_elm && wk_elm.length > 0) {
-      wk += wk_elm[0].textContent.trim() + ': ';
+      wk += wk_elm[0].textContent.trim() + ':</a> ';
     }
     wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-text');
     if(wk_elm && wk_elm.length > 0) {
-      wk += wk_elm[0].textContent.trim() + '</a>';
+      wk += wk_elm[0].textContent.trim();
     }
     ret += wk;
   }
