@@ -1,3 +1,6 @@
+
+/*global browser:true*/
+
 var IS_AUTO_UPDATE = true;
 var INTERVAL_ID;
 var CHECK_INTERVAL = 15000;
