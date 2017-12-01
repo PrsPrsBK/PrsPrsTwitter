@@ -1,10 +1,10 @@
 
 /*global browser:true*/
 
-var IS_AUTO_UPDATE = true;
-var INTERVAL_ID;
-var CHECK_INTERVAL = 15000;
-var TO_CLIPBOARD = '';
+let IS_AUTO_UPDATE = true;
+let INTERVAL_ID;
+const CHECK_INTERVAL = 15000;
+let TO_CLIPBOARD = '';
 
 if(typeof browser === 'undefined') {
   window.browser = window.chrome;
