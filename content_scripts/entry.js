@@ -41,14 +41,14 @@ const getQuoteTweetText = function(tgt_elm) {
   wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-link');
   if(wk_elm && wk_elm.length > 0) {
     console.log('scrape1');
-    let wk = ` <a href="${wk_elm[0].href}">`;
+    let wk = ` <div class="quotedTweet"><a href="${wk_elm[0].href}">`;
     wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-fullname');
     if(wk_elm && wk_elm.length > 0) {
       wk += wk_elm[0].textContent.trim() + ':</a> ';
     }
     wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-text');
     if(wk_elm && wk_elm.length > 0) {
-      wk += wk_elm[0].textContent.trim();
+      wk += wk_elm[0].textContent.trim() + '</div>';
     }
     ret += wk;
   }
