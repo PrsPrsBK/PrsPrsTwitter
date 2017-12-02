@@ -24,6 +24,11 @@ const clickUpdateButton = function() {
   }
 };
 
+/**
+ * make and return Object contains each datetime infos as string, made from mill seconds string.
+ * @param {string} milsec_txt - string
+ * @returns {?result} - Object
+ */
 const parseTweetTime = function(milsec_txt) {
   const wk = new Date(parseInt(milsec_txt));
   const result = {};
