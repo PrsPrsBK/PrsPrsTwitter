@@ -10,7 +10,7 @@ if(typeof browser === 'undefined') {
 }
 
 const updatePageAction = function() {
-  browser.runtime.sendMessage({'pageAction': IS_AUTO_UPDATE ? 'on': 'off'});
+  browser.runtime.sendMessage({task:'setIcon', icon: IS_AUTO_UPDATE});
 };
 
 /*
