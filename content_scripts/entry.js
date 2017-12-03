@@ -89,6 +89,8 @@ const copyFromOverlay= function(tgt_elm) {
       result.text = result.text.replace(/(.+)(https:\/\/twitter\.com\/.+)$/, '$1');
       result.text += quoteTweetText;
     }
+    //ignore CR only
+    result.text = result.text.replace(/\r?\n/g, ' ');
   }
   //console.log(result);
   const result_text = '<dt><a href="' +
