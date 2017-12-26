@@ -87,7 +87,7 @@ const getQuoteTweetText = function(tgt_elm) {
     wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-text');
     if(wk_elm && wk_elm.length > 0) {
       let mainText = wk_elm[0].textContent.trim();
-      mainText = mainText.replace(/\r?\n/g, ' ')
+      mainText = mainText.replace(/\r?\n/g, ' ');
       if(regexInnerHref.test(mainText)) {
         mainText = activateHrefText(mainText);
       }
@@ -121,7 +121,7 @@ const copyFromOverlay= function(tgt_elm) {
   if(wk_elm && wk_elm.length > 0) {
     console.log(4);
     let mainText = wk_elm[0].textContent.trim();
-    mainText = mainText.replace(/\r?\n/g, ' ')
+    mainText = mainText.replace(/\r?\n/g, ' ');
     const quoteTweetText = getQuoteTweetText(tgt_elm);
     if(quoteTweetText !== '') {
       console.log('add quote');
