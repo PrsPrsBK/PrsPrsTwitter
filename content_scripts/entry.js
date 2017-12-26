@@ -40,6 +40,38 @@ const parseTweetTime = function(milsec_txt) {
   return result;
 };
 
+const regexInnerHref = /(.+)(https?:\/\/[^ ]+) …(.*)/;
+
+const escapeHtmlChar = (tgtText) => {
+  return tgtText.replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+};
+
+const activateHrefText = (tgtText) => {
+  let headText = '';
+  let hrefText = '';
+  let tailText = '';
+  if(regexInnerHref.test(tgtText)) {
+    headText = tgtText.replace(regexInnerHref, '$1');
+    hrefText = tgtText.replace(regexInnerHref, '<a href="$2">URL</a>');
+    tailText = tgtText.replace(regexInnerHref, '$3');
+  }
+  else {
+    headText = tgtText;
+  }
+  console.log(`head==${headText}`);
+  console.log(`href==${hrefText}`);
+  console.log(`tail==${tailText}`);
+  headText = headText.replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  tailText = tailText.replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  return headText + hrefText + tailText;
+};
+
 const getQuoteTweetText = function(tgt_elm) {
   let ret = '';
   let wk_elm;
@@ -49,11 +81,17 @@ const getQuoteTweetText = function(tgt_elm) {
     let wk = ` <div class="quotedTweet"><a href="${wk_elm[0].href}">`;
     wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-fullname');
     if(wk_elm && wk_elm.length > 0) {
-      wk += wk_elm[0].textContent.trim() + ':</a> ';
+      const fullname = escapeHtmlChar(wk_elm[0].textContent.trim());
+      wk += fullname + ':</a> ';
     }
     wk_elm = tgt_elm.getElementsByClassName('QuoteTweet-text');
     if(wk_elm && wk_elm.length > 0) {
-      wk += wk_elm[0].textContent.trim() + '</div>';
+      let mainText = wk_elm[0].textContent.trim();
+      mainText = mainText.replace(/\r?\n/g, ' ')
+      if(regexInnerHref.test(mainText)) {
+        mainText = activateHrefText(mainText);
+      }
+      wk += mainText + '</div>';
     }
     ret += wk;
   }
@@ -76,21 +114,22 @@ const copyFromOverlay= function(tgt_elm) {
   wk_elm = tgt_elm.getElementsByClassName('fullname');
   if(wk_elm && wk_elm.length > 0) {
     console.log(3);
-    result.fullname = wk_elm[0].textContent.trim();
+    const fullname = escapeHtmlChar(wk_elm[0].textContent.trim());
+    result.fullname = fullname;
   }
   wk_elm = tgt_elm.getElementsByClassName('tweet-text');
   if(wk_elm && wk_elm.length > 0) {
     console.log(4);
-    result.text = wk_elm[0].textContent.trim();
+    let mainText = wk_elm[0].textContent.trim();
+    mainText = mainText.replace(/\r?\n/g, ' ')
     const quoteTweetText = getQuoteTweetText(tgt_elm);
     if(quoteTweetText !== '') {
       console.log('add quote');
-      //result.text = result.text.replace(/(.+)(https:\/\/twitter\.com\/ … )$/, '$1');
-      result.text = result.text.replace(/(.+)(https:\/\/twitter\.com\/.+)$/, '$1');
-      result.text += quoteTweetText;
+      mainText = mainText.replace(/(.+)(https:\/\/twitter\.com\/.+)$/, '$1');
     }
-    //ignore CR only
-    result.text = result.text.replace(/\r?\n/g, ' ');
+    mainText = activateHrefText(mainText);
+    mainText += quoteTweetText;
+    result.text = mainText;
   }
   //console.log(result);
   const result_text = '<dt><a href="' +
