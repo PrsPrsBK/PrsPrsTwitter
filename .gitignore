@@ -2,4 +2,6 @@ node_modules
 web-ext-artifacts
 .web-extension-id
 note/*
+npm-debug.log
+js2flowchart/
 
