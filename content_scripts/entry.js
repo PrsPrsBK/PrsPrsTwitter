@@ -1,6 +1,3 @@
-
-/*global browser:true*/
-
 let IS_AUTO_UPDATE = true;
 let INTERVAL_ID;
 const CHECK_INTERVAL = 15000;
@@ -9,7 +6,7 @@ if(typeof browser === 'undefined') {
   window.browser = window.chrome;
 }
 
-const updatePageAction = function() {
+const updatePageAction = () => {
   browser.runtime.sendMessage({task:'setIcon', icon: IS_AUTO_UPDATE});
 };
 
@@ -17,14 +14,14 @@ const updatePageAction = function() {
 clickUpdateButton():
 * click update button.
 */
-const clickUpdateButton = function() {
+const clickUpdateButton = () => {
   const wk_elm = document.getElementsByClassName('new-tweets-bar');
   if(wk_elm && wk_elm.length > 0) {
     wk_elm[0].click();
   }
 };
 
-const preventKeydown = function(evt) {
+const preventKeydown = (evt) => {
   if(evt.target.isContentEditable
     || evt.target.nodeName.toUpperCase() === 'INPUT'
     || evt.target.nodeName.toUpperCase() === 'TEXTAREA') {
@@ -33,7 +30,7 @@ const preventKeydown = function(evt) {
   evt.preventDefault();
 };
 
-const handleKeydown = function(evt) {
+const handleKeydown = (evt) => {
   switch(evt.key) {
     case 'a':
       if(IS_AUTO_UPDATE === false) {
@@ -58,7 +55,7 @@ const handleKeydown = function(evt) {
   }
 };
 
-const start = function() {
+const start = () => {
   console.debug(window.location.href);
   updatePageAction();
   //DOMContentLoaded and load Event can be listend on capturing phase. not bubbling phase.
