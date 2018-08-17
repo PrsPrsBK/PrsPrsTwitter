@@ -30,6 +30,15 @@ const preventKeydown = (evt) => {
   evt.preventDefault();
 };
 
+const adjustScrollPos = () => {
+  //#page-container > div.ProfileCanopy.ProfileCanopy--withNav.ProfileCanopy--large.js-variableHeightTopBar > div > div.ProfileCanopy-header.u-bgUserColor
+  console.log('do');
+  const header = document.querySelector('#page-container > div.ProfileCanopy.ProfileCanopy--withNav.ProfileCanopy--large.js-variableHeightTopBar > div > div.ProfileCanopy-header.u-bgUserColor');
+  header.style.height = '280px';
+  const selectedItem = document.getElementsByClassName('selected-stream-item');
+  selectedItem[0].scrollIntoView();
+};
+
 const handleKeydown = (evt) => {
   switch(evt.key) {
     case 'a':
@@ -39,8 +48,11 @@ const handleKeydown = (evt) => {
         updatePageAction();
       }
       break;
-    case 'b':
-      preventKeydown(evt);
+    //case 'b':
+    //  preventKeydown(evt);
+    //  break;
+    case 'k':
+      adjustScrollPos();
       break;
     case 'q':
       if(IS_AUTO_UPDATE) {
@@ -49,9 +61,9 @@ const handleKeydown = (evt) => {
         updatePageAction();
       }
       break;
-    case 'u':
-      preventKeydown(evt);
-      break;
+    //case 'u':
+    //  preventKeydown(evt);
+    //  break;
   }
 };
 
