@@ -3,13 +3,10 @@ if(typeof browser === 'undefined') {
 }
 
 browser.runtime.onMessage.addListener((message, sender) => {
-  console.log('at bs onMessage');
-  console.log(sender.tab.id + ' is sender');
   if(message.task === 'setIcon') {
     if(message.icon) {
       browser.pageAction.setIcon({
         tabId: sender.tab.id,
-        //path: 'icons/icon.svg'
         path: 'icons/icon-on.png'
       });
       browser.pageAction.show(sender.tab.id);
@@ -24,3 +21,4 @@ browser.runtime.onMessage.addListener((message, sender) => {
   }
 });
 
+// vim:expandtab ff=dos fenc=utf-8 sw=2
