@@ -4,4 +4,5 @@ web-ext-artifacts
 note/*
 npm-debug.log
 js2flowchart/
-
+*/*.js.svg
+jsconfig.json
