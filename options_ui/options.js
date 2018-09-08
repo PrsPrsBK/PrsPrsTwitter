@@ -33,7 +33,6 @@ const configUI = {
         value: setting.id === 'update_check_interval' ? parseInt(inpElm[setting.value]) : inpElm[setting.value],
       });
     });
-    console.log(`${JSON.stringify(ret)}`);
     return ret;
   },
 
@@ -41,10 +40,8 @@ const configUI = {
     browser.storage.local.get(STORE_NAME, (store_obj) => {
       const result = store_obj[STORE_NAME];
       if(!result || !Array.isArray(result) || result.length === 0) {
-        console.log('nothing');
         return;
       }
-      console.log(`restore ${JSON.stringify(result)}`);
       result.forEach((setting) => {
         const inpElm = document.getElementById(setting.id);
         if(typeof setting.value === 'boolean') {
@@ -68,11 +65,12 @@ const configUI = {
 document.addEventListener('DOMContentLoaded', configUI.restoreEntries);
 document.getElementById('save').addEventListener('click', configUI.saveEntries);
 
-document.getElementById('update_check_interval').addEventListener("input", (e) => {
+document.getElementById('update_check_interval').addEventListener('input', (e) => {
+  const saveButton = document.getElementById('save');
   if (e.target.validity.valid) {
-    document.getElementById('save').disabled = false;
+    saveButton.disabled = false;
   } else {
-    document.getElementById('save').disabled = true;
+    saveButton.disabled = true;
   }
 });
 
