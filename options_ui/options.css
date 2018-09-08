@@ -12,7 +12,9 @@ h1, h2 {
 }
 label {
   display: table-cell;
+  vertical-align: top;
   color: #F9C022;
+  font-size: 120%;
 }
 #update_check_interval {
   width: 6em;
@@ -37,9 +39,10 @@ input:valid+span:before {
   color: green;
 }
 .help_div>p {
-  font-size: 160%;
   display: table-cell;
   vertical-align: top;
+  font-size: 160%;
+  color: #8B8792;
 }
 
 /* vim:expandtab ff=dos fenc=utf-8 sw=2 */
