@@ -25,30 +25,27 @@ const SETTINGS_LIST = [
 const configUI = {
 
   extractSettings : () => {
-    const ret = [];
+    const ret = {};
     SETTINGS_LIST.forEach((setting) => {
       const inpElm = document.getElementById(setting.id);
-      ret.push({
-        id: setting.id,
-        value: setting.id === 'update_check_interval' ? parseInt(inpElm[setting.value]) : inpElm[setting.value],
-      });
+      console.log(`??? ${inpElm[setting.value]}`);
+      ret[setting.id] = setting.id === 'update_check_interval' ? parseInt(inpElm[setting.value]) : inpElm[setting.value];
     });
+    console.log(`${JSON.stringify(ret,null,2)}`);
     return ret;
   },
 
   restoreEntries : () => {
     browser.storage.local.get(STORE_NAME, (store_obj) => {
       const result = store_obj[STORE_NAME];
-      if(!result || !Array.isArray(result) || result.length === 0) {
+      if(!result) {
         return;
       }
-      result.forEach((setting) => {
+      console.log(`${JSON.stringify(result,null,2)}`);
+      SETTINGS_LIST.forEach((setting) => {
         const inpElm = document.getElementById(setting.id);
-        if(typeof setting.value === 'boolean') {
-          inpElm.checked = setting.value;
-        }
-        else {
-          inpElm.value = setting.value;
+        if(result[setting.id] !== undefined && result[setting.id] !== null) {
+          inpElm[setting.value] = result[setting.id];
         }
       });
     });
