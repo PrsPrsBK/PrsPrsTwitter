@@ -11,6 +11,33 @@
     <hr>
     <h2>List of Simple Setting.</h2>
     <div id="setting_list">
+      <div style="grid-column: 1;grid-row: 1;">
+        <label for="update_check">Update Check 'ON'</label>
+      </div>
+      <div style="grid-column: 1;grid-row: 2;">
+        <label for="update_check_interval">Update Check Interval (milli sec.)</label>
+      </div>
+      <div style="grid-column: 1;grid-row: 3;">
+        <label for="mute_by_key">Mute By Key (u)</label>
+      </div>
+      <div style="grid-column: 1;grid-row: 4;">
+        <label for="block_by_key">Block By Key (b)</label>
+      </div>
+
+      <div style="grid-column: 3;grid-row: 1;">
+        <input type="checkbox" id="update_check" checked>
+      </div>
+      <div style="grid-column: 3;grid-row: 2;">
+        <input type="number" id="update_check_interval"
+          placeholder="xxx000" min="12000" max="600000" value="16000">
+        <span class="valid_sign">12000--100000</span>
+      </div>
+      <div style="grid-column: 3;grid-row: 3;">
+        <input type="checkbox" id="mute_by_key">
+      </div>
+      <div style="grid-column: 3;grid-row: 4;">
+        <input type="checkbox" id="block_by_key">
+      </div>
     </div>
     <hr>
   </form>

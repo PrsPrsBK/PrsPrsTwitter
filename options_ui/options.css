@@ -1,4 +1,38 @@
 @charset "utf8";
 html {
   background-color: #26232A;
+  color: #4D5C69;
+}
+h1, h2 {
+ color: #1Da1F2;
+}
+#setting_list {
+  display: grid;
+  grid-template-columns: 80px 10px 100px;
+}
+label {
+  display: table-cell;
+  color: #F9C022;
+}
+#update_check_interval {
+  width: 6em;
+}
+span.valid_sign {
+  position: absolute;
+  padding-left: 5px;
+  font-size: 180%;
+}
+input[type='number'] {
+  height: 3ex;
+}
+input+span {
+  color: #4D5C69;
+}
+input:invalid+span:before {
+  content: '✖';
+  color: red;
+}
+input:valid+span:before {
+  content: '✓';
+  color: green;
 }
