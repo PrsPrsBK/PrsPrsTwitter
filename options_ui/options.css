@@ -6,6 +6,12 @@ html {
 h1, h2 {
  color: #1Da1F2;
 }
+button.save {
+  font-weight: bold;
+  font-size: 144%;
+  width: 160px;
+  height: 40px;
+}
 #setting_list {
   display: grid;
   grid-template-columns: 80px 10px 100px 1.5em 1fr;
