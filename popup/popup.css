@@ -4,5 +4,7 @@ html {
   color: #4D5C69;
   width: 12em;
 }
-
+button {
+  width: 100%;
+}
 /* vim:expandtab ff=dos fenc=utf-8 sw=2 */
