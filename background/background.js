@@ -4,20 +4,11 @@ if(typeof browser === 'undefined') {
 
 browser.runtime.onMessage.addListener((message, sender) => {
   if(message.task === 'setIcon') {
-    if(message.icon) {
-      browser.pageAction.setIcon({
-        tabId: sender.tab.id,
-        path: 'icons/icon-on.png'
-      });
-      browser.pageAction.show(sender.tab.id);
-    }
-    else {
-      browser.pageAction.setIcon({
-        tabId: sender.tab.id,
-        path: 'icons/icon-off.png'
-      });
-      browser.pageAction.show(sender.tab.id);
-    }
+    browser.pageAction.setIcon({
+      tabId: sender.tab.id,
+      path: message.icon ? 'icons/icon-on.png' : 'icons/icon-off.png',
+    });
+    browser.pageAction.show(sender.tab.id);
   }
 });
 
