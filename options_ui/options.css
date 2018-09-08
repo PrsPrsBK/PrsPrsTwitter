@@ -36,3 +36,5 @@ input:valid+span:before {
   content: '✓';
   color: green;
 }
+
+/* vim:expandtab ff=dos fenc=utf-8 sw=2 */

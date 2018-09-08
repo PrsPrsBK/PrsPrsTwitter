@@ -1,6 +1,8 @@
 @charset "utf8";
-
-div.container {
+html {
+  background-color: #26232A;
+  color: #4D5C69;
+  width: 12em;
 }
-/* vim: enc=utf-8 */
 
+/* vim:expandtab ff=dos fenc=utf-8 sw=2 */
