@@ -31,6 +31,17 @@ const pptw = {
     }
   },
 
+  getTweetList : () => {
+    const root = document.getElementById('stream-items-id');
+    if(!root) {
+      return;
+    }
+    const tweetContainerList = root.getElementsByClassName('js-stream-item');
+    if(tweetContainerList && tweetContainerList.length > 0) {
+      console.log(tweetContainerList.length);
+    }
+  },
+
   handleKeydown : (evt) => {
     if(evt.key === 'k') {
       console.log(`key ${evt.key}`);
@@ -53,6 +64,10 @@ const pptw = {
       clearInterval(INTERVAL_ID);
       SETTINGS.update_check = false;
       pptw.updatePageAction();
+    }
+    else if(evt.key === 'l') {
+      console.log(`key ${evt.key}`);
+      pptw.getTweetList();
     }
   },
 
