@@ -8,7 +8,7 @@ h1, h2 {
 }
 #setting_list {
   display: grid;
-  grid-template-columns: 80px 10px 100px;
+  grid-template-columns: 80px 10px 100px 1.5em 1fr;
 }
 label {
   display: table-cell;
@@ -35,6 +35,11 @@ input:invalid+span:before {
 input:valid+span:before {
   content: '✓';
   color: green;
+}
+.help_div>p {
+  font-size: 160%;
+  display: table-cell;
+  vertical-align: top;
 }
 
 /* vim:expandtab ff=dos fenc=utf-8 sw=2 */

@@ -30,7 +30,7 @@
       <div style="grid-column: 3;grid-row: 2;">
         <input type="number" id="update_check_interval"
           min="12000" max="600000" value="100000">
-        <span class="valid_sign">12000--600000</span>
+        <span class="valid_sign"></span>
       </div>
       <div style="grid-column: 3;grid-row: 3;">
         <input type="checkbox" id="mute_by_key">
@@ -38,6 +38,20 @@
       <div style="grid-column: 3;grid-row: 4;">
         <input type="checkbox" id="block_by_key">
       </div>
+
+      <div style="grid-column: 5;grid-row: 1;" class="help_div">
+        <p>If checked, periodically check and click top area when updates are coming.</p>
+      </div>
+      <div style="grid-column: 5;grid-row: 2;" class="help_div">
+        <p>as is. 12000--600000 milli second.</p>
+      </div>
+      <div style="grid-column: 5;grid-row: 3;" class="help_div">
+        <p>To operate by key or not. if you change this, reload twitter pages.</p>
+      </div>
+      <div style="grid-column: 5;grid-row: 4;" class="help_div">
+        <p>same as mute.</p>
+      </div>
+
     </div>
     <hr>
   </form>
