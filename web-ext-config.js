@@ -7,6 +7,7 @@ module.exports = {
     'note/',
     'test/',
     '*/js2flowchart/',
+    'jsconfig.json',
     'web-ext-config.js',
     'web-ext-artifacts/',
   ],
