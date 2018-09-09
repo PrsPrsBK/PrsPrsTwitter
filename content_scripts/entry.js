@@ -49,15 +49,12 @@ const pptw = {
       console.log(`mute ${SETTINGS.mute_by_key}`);
       pptw.preventKeydown(evt);
     }
-    else if(evt.key === 'a') {
-      pptw.setUpdateCheck(true);
-    }
-    else if(evt.key === 'q') {
-      pptw.setUpdateCheck(false);
-    }
-    else if(evt.key === 'l') {
-      console.log(`key ${evt.key} tw ${JSON.stringify(pptw.getTweetList())}`);
-    }
+    // else if(evt.key === 'a') {
+    //   pptw.setUpdateCheck(true);
+    // }
+    // else if(evt.key === 'q') {
+    //   pptw.setUpdateCheck(false);
+    // }
   },
 
   preventKeydown : (evt) => {
@@ -128,8 +125,8 @@ browser.runtime.onMessage.addListener((message, sender) => {
   else if(message.task === 'scrollToTweet' && message.from === 'popup') {
     pptw.scrollToTweet(message.ord);
   }
-  else if(message.task === 'updateSettings') {
-    pptw.updateSettings(message.settings);
+  else if(message.task === 'toggleUpdateCheck' && message.from === 'popup') {
+    pptw.setUpdateCheck(!SETTINGS.update_check);
   }
 });
 

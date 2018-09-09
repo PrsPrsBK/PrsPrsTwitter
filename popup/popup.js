@@ -3,13 +3,6 @@ if(typeof browser === 'undefined') {
 }
 
 const popup = {
-  showDebugMessage : (message) => {
-    const tweetListRoot = document.getElementById('tweet_list');
-    const wkTextNode = document.createTextNode(message);
-    const parElm = document.createElement('p');
-    parElm.appendChild(wkTextNode);
-    tweetListRoot.appendChild(parElm);
-  },
 
   initPopup : () => {
     const tweetListRoot = document.getElementById('tweet_list');
@@ -17,9 +10,7 @@ const popup = {
       tweetListRoot.removeChild(tweetListRoot.firstChild);
     }
     browser.tabs.query({currentWindow: true, active: true}, (tabs) => {
-      popup.showDebugMessage('can call query');
       for(const tab of tabs) {
-        popup.showDebugMessage(`tab: ${tab.id}`);
         browser.tabs.sendMessage(tab.id, {
           task: 'tweetList',
           from: 'popup',
@@ -57,6 +48,17 @@ browser.runtime.onMessage.addListener((message, _sender) => {
 document.addEventListener('click', (e) => {
   if(e.target.id === 'go_addon_page') {
     browser.runtime.openOptionsPage();
+  }
+  else if(e.target.id === 'toggle_update') {
+    // we don't know storage settings, just toggle current value of active tab.
+    browser.tabs.query({currentWindow: true, active: true}, (tabs) => {
+      for(const tab of tabs) {
+        browser.tabs.sendMessage(tab.id, {
+          task: 'toggleUpdateCheck',
+          from: 'popup',
+        });
+      }
+    });
   }
   else if(e.target.classList.contains('each_tweet')) {
     browser.tabs.query({currentWindow: true, active: true}, (tabs) => {
