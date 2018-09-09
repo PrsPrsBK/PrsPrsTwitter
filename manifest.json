@@ -3,7 +3,7 @@
   "description": "Princess Princess Twitter.",
   "manifest_version": 2,
   "name": "PrsPrsTwitter",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage_url": "https://github.com/PrsPrsBK/prsprstwitter",
   "icons": {
     "48": "icons/icon-on.png"
