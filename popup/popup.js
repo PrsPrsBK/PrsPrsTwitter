@@ -34,7 +34,7 @@ const popup = {
       tweetListRoot.removeChild(tweetListRoot.firstChild);
     }
     let divElm, twButton, wkTextNode;
-    tweetList.forEach((elm, idx) =>{
+    tweetList.forEach((elm, idx) => {
       wkTextNode = document.createTextNode(elm);
       twButton = document.createElement('button');
       twButton.classList.add('each_tweet');

@@ -15,15 +15,6 @@ const STORE_NAME = 'pptw_settings';
 
 const pptw = {
 
-  adjustScrollPos : () => {
-    //#page-container > div.ProfileCanopy.ProfileCanopy--withNav.ProfileCanopy--large.js-variableHeightTopBar > div > div.ProfileCanopy-header.u-bgUserColor
-    console.log('do');
-    const header = document.querySelector('#page-container > div.ProfileCanopy.ProfileCanopy--withNav.ProfileCanopy--large.js-variableHeightTopBar > div > div.ProfileCanopy-header.u-bgUserColor');
-    header.style.height = '280px';
-    const selectedItem = document.getElementsByClassName('selected-stream-item');
-    //selectedItem[0].scrollIntoView();
-  },
-  
   clickUpdateButton : () => {
     const wk_elm = document.getElementsByClassName('new-tweets-bar');
     if(wk_elm && wk_elm.length > 0) {
@@ -50,10 +41,7 @@ const pptw = {
   },
 
   handleKeydown : (evt) => {
-    if(evt.key === 'k') {
-      pptw.adjustScrollPos();
-    }
-    else if(SETTINGS.block_by_key === false && evt.key === 'b') {
+    if(SETTINGS.block_by_key === false && evt.key === 'b') {
       console.log(`block ${SETTINGS.block_by_key}`);
       pptw.preventKeydown(evt);
     }
