@@ -5,7 +5,7 @@ if(typeof browser === 'undefined') {
 
 let INTERVAL_ID;
 // the same members as storage.local's
-let SETTINGS = {
+const SETTINGS = {
   update_check : true,
   update_check_interval : 14000,
   mute_by_key : false,
@@ -49,15 +49,11 @@ const pptw = {
       console.log(`mute ${SETTINGS.mute_by_key}`);
       pptw.preventKeydown(evt);
     }
-    else if(SETTINGS.update_check === false && evt.key === 'a') {
-      INTERVAL_ID = setInterval(pptw.clickUpdateButton, SETTINGS.update_check_interval);
-      SETTINGS.update_check = true;
-      pptw.updatePageAction();
+    else if(evt.key === 'a') {
+      pptw.setUpdateCheck(true);
     }
-    else if(SETTINGS.update_check && evt.key === 'q') {
-      clearInterval(INTERVAL_ID);
-      SETTINGS.update_check = false;
-      pptw.updatePageAction();
+    else if(evt.key === 'q') {
+      pptw.setUpdateCheck(false);
     }
     else if(evt.key === 'l') {
       console.log(`key ${evt.key} tw ${JSON.stringify(pptw.getTweetList())}`);
@@ -79,7 +75,33 @@ const pptw = {
       tweetContainerList[ord].scrollIntoView();
     }
   },
-  
+
+  setUpdateCheck :(goEnable) => {
+    if(goEnable && SETTINGS.update_check === false) {
+      INTERVAL_ID = setInterval(pptw.clickUpdateButton, SETTINGS.update_check_interval);
+      SETTINGS.update_check = true;
+      pptw.updatePageAction();
+    }
+    else if(goEnable === false && SETTINGS.update_check) {
+      clearInterval(INTERVAL_ID);
+      SETTINGS.update_check = false;
+      pptw.updatePageAction();
+    }
+  },
+
+  updateSettings : (newSettings) => {
+    if(newSettings) {
+      Object.keys(newSettings).forEach((key) => {
+        if(SETTINGS.hasOwnProperty(key)) {
+          SETTINGS[key] = newSettings[key];
+        }
+      });
+      console.log(`${JSON.stringify(SETTINGS, null, 2)}`);
+    }
+    pptw.setUpdateCheck(SETTINGS.update_check);
+    pptw.updatePageAction();
+  },
+
   updatePageAction : () => {
     browser.runtime.sendMessage({ task:'setIcon', icon: SETTINGS.update_check, });
   },
@@ -89,21 +111,14 @@ const pptw = {
 const start = () => {
   browser.storage.local.get(STORE_NAME, (store_obj) => {
     const result = store_obj[STORE_NAME];
-    if(result) {
-      SETTINGS = result;
-    }
-    console.log(`${JSON.stringify(SETTINGS, null, 2)}`);
-    pptw.updatePageAction();
+    pptw.updateSettings(result);
     document.addEventListener('keydown', pptw.handleKeydown);
-    if(SETTINGS.update_check) {
-      INTERVAL_ID = setInterval(pptw.clickUpdateButton, SETTINGS.update_check_interval);
-    }
   });
 };
 
 browser.runtime.onMessage.addListener((message, sender) => {
+  console.log(`message ${JSON.stringify(message)} sender ${JSON.stringify(sender)}`);
   if(message.task === 'tweetList' && message.from === 'popup') {
-    console.log(`message ${JSON.stringify(message)} sender ${JSON.stringify(sender)}`);
     browser.runtime.sendMessage({
       task: message.task,
       replyTo: message.from,
@@ -111,8 +126,10 @@ browser.runtime.onMessage.addListener((message, sender) => {
     });
   }
   else if(message.task === 'scrollToTweet' && message.from === 'popup') {
-    console.log(`message ${JSON.stringify(message)} sender ${JSON.stringify(sender)}`);
     pptw.scrollToTweet(message.ord);
+  }
+  else if(message.task === 'updateSettings') {
+    pptw.updateSettings(message.settings);
   }
 });
 
