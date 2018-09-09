@@ -36,10 +36,18 @@ const pptw = {
     if(!root) {
       return;
     }
-    const tweetContainerList = root.getElementsByClassName('js-stream-item');
+    const tweetTextArr = [];
+    const tweetContainerList = root.querySelectorAll('.js-stream-item');
     if(tweetContainerList && tweetContainerList.length > 0) {
       console.log(tweetContainerList.length);
+      tweetContainerList.forEach((elm) => {
+        const textContainer = elm.querySelector('.tweet-text');
+        if(textContainer) {
+          tweetTextArr.push(textContainer.textContent.trim());
+        }
+      });
     }
+    return tweetTextArr;
   },
 
   handleKeydown : (evt) => {
@@ -66,8 +74,7 @@ const pptw = {
       pptw.updatePageAction();
     }
     else if(evt.key === 'l') {
-      console.log(`key ${evt.key}`);
-      pptw.getTweetList();
+      console.log(`key ${evt.key} tw ${JSON.stringify(pptw.getTweetList())}`);
     }
   },
 
@@ -101,6 +108,17 @@ const start = () => {
     }
   });
 };
+
+browser.runtime.onMessage.addListener((message, sender) => {
+  if(message.task === 'tweetList' && message.from === 'popup') {
+    console.log(`message ${JSON.stringify(message)} sender ${JSON.stringify(sender)}`);
+    browser.runtime.sendMessage({
+      task: message.task,
+      replyTo: message.from,
+      tweetList: pptw.getTweetList(),
+    });
+  }
+});
 
 start();
 
