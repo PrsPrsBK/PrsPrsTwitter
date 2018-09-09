@@ -2,12 +2,19 @@
 html {
   background-color: #26232A;
   color: #4D5C69;
-  width: 12em;
+}
+body {
+  width: 14em;
 }
 #menu_root {
   display: grid;
+  width: 14em;
   grid-template-columns: 50% 50%;
   grid-template-rows: 1fr;
+}
+#tweet_list {
+  width: 14em;
+  overflow: hidden;
 }
 button {
   width: 100%;
@@ -17,6 +24,7 @@ button.menu:hover {
 }
 button.each_tweet {
   height: 4ex;
+  width: 100%;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
