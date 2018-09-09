@@ -14,4 +14,7 @@ button.each_tweet {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+button.each_tweet:hover {
+  background-color: #55EE55;
+}
 /* vim:expandtab ff=dos fenc=utf-8 sw=2 */
