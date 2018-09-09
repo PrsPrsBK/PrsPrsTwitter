@@ -7,4 +7,11 @@ html {
 button {
   width: 100%;
 }
+button.each_tweet {
+  height: 4ex;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /* vim:expandtab ff=dos fenc=utf-8 sw=2 */
