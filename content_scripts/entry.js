@@ -88,6 +88,13 @@ const pptw = {
     evt.preventDefault();
   },
 
+  scrollToTweet : (ord) => {
+    const tweetContainerList = document.querySelectorAll('#stream-items-id .js-stream-item');
+    if(tweetContainerList && tweetContainerList.length > 0 && ord < tweetContainerList.length) {
+      tweetContainerList[ord].scrollIntoView();
+    }
+  },
+  
   updatePageAction : () => {
     browser.runtime.sendMessage({ task:'setIcon', icon: SETTINGS.update_check, });
   },
@@ -117,6 +124,10 @@ browser.runtime.onMessage.addListener((message, sender) => {
       replyTo: message.from,
       tweetList: pptw.getTweetList(),
     });
+  }
+  else if(message.task === 'scrollToTweet' && message.from === 'popup') {
+    console.log(`message ${JSON.stringify(message)} sender ${JSON.stringify(sender)}`);
+    pptw.scrollToTweet(message.ord);
   }
 });
 
