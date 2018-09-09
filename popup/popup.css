@@ -4,8 +4,16 @@ html {
   color: #4D5C69;
   width: 12em;
 }
+#menu_root {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 1fr;
+}
 button {
   width: 100%;
+}
+button.menu:hover {
+  background-color: #1Da1F2;
 }
 button.each_tweet {
   height: 4ex;
