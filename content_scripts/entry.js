@@ -49,11 +49,11 @@ const pptw = {
     }
     else if(SETTINGS.block_by_key === false && evt.key === 'b') {
       console.log(`block ${SETTINGS.block_by_key}`);
-      evt.preventDefault();
+      pptw.preventKeydown(evt);
     }
     else if(SETTINGS.mute_by_key === false && evt.key === 'u') {
       console.log(`mute ${SETTINGS.mute_by_key}`);
-      evt.preventDefault();
+      pptw.preventKeydown(evt);
     }
     else if(SETTINGS.update_check === false && evt.key === 'a') {
       INTERVAL_ID = setInterval(pptw.clickUpdateButton, SETTINGS.update_check_interval);
