@@ -3,7 +3,7 @@ if(typeof browser === 'undefined') {
   window.browser = window.chrome;
 }
 
-let INTERVAL_ID;
+let INTERVAL_ID = 'not_touched';
 // the same members as storage.local's
 const SETTINGS = {
   update_check : true,
@@ -73,8 +73,8 @@ const pptw = {
     }
   },
 
-  setUpdateCheck :(goEnable) => {
-    if(goEnable && SETTINGS.update_check === false) {
+  setUpdateCheck : (goEnable) => {
+    if(goEnable && (SETTINGS.update_check === false || INTERVAL_ID === 'not_touched')) {
       INTERVAL_ID = setInterval(pptw.clickUpdateButton, SETTINGS.update_check_interval);
       SETTINGS.update_check = true;
       pptw.updatePageAction();
