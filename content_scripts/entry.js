@@ -39,7 +39,6 @@ const pptw = {
     const tweetTextArr = [];
     const tweetContainerList = root.querySelectorAll('.js-stream-item');
     if(tweetContainerList && tweetContainerList.length > 0) {
-      console.log(tweetContainerList.length);
       tweetContainerList.forEach((elm) => {
         const textContainer = elm.querySelector('.tweet-text');
         if(textContainer) {
@@ -52,7 +51,6 @@ const pptw = {
 
   handleKeydown : (evt) => {
     if(evt.key === 'k') {
-      console.log(`key ${evt.key}`);
       pptw.adjustScrollPos();
     }
     else if(SETTINGS.block_by_key === false && evt.key === 'b') {
@@ -84,7 +82,6 @@ const pptw = {
       || evt.target.nodeName.toUpperCase() === 'TEXTAREA') {
       return;
     }
-    console.log('preventkeydown');
     evt.preventDefault();
   },
 

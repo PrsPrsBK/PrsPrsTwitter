@@ -49,8 +49,7 @@ const popup = {
 };
 
 document.addEventListener('DOMContentLoaded', popup.initPopup);
-browser.runtime.onMessage.addListener((message, sender) => {
-  console.log(`--- message ${JSON.stringify(message)} sender ${JSON.stringify(sender)}`);
+browser.runtime.onMessage.addListener((message, _sender) => {
   if(message.task === 'tweetList' && message.replyTo === 'popup') {
     popup.loadTweets(message.tweetList);
   }
