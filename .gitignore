@@ -3,6 +3,7 @@ web-ext-artifacts
 .web-extension-id
 note/*
 npm-debug.log
+resource/*
 js2flowchart/
 */*.js.svg
 jsconfig.json
