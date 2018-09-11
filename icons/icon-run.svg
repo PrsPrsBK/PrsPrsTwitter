@@ -1,0 +1,14 @@
+<svg version="1.1"
+     baseProfile="full"
+     width="200px"
+     height="200px"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <rect width="100%" height="100%" fill="#141D26" />
+
+  <circle cx="100" cy="100" r="80" fill="#1DA1F2" />
+
+  <rect width="112" height="112" fill="#E6195C" transform="rotate(15 100 100) translate(44 44)" />
+
+</svg>
+
