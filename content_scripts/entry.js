@@ -79,7 +79,7 @@ const pptw = {
       SETTINGS.update_check = true;
       pptw.updatePageAction();
     }
-    else if(goEnable === false && SETTINGS.update_check) {
+    else if(goEnable === false && (SETTINGS.update_check || INTERVAL_ID === 'not_touched')) {
       clearInterval(INTERVAL_ID);
       SETTINGS.update_check = false;
       pptw.updatePageAction();
