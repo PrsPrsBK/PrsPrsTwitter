@@ -96,7 +96,6 @@ const pptw = {
       console.log(`${JSON.stringify(SETTINGS, null, 2)}`);
     }
     pptw.setUpdateCheck(SETTINGS.update_check);
-    pptw.updatePageAction();
   },
 
   updatePageAction : () => {
