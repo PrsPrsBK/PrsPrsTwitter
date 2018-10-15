@@ -33,7 +33,8 @@
       "19": "icons/icon-on.png"
     },
     "default_popup": "popup/popup.html",
-    "default_title": "PrsPrsTwitter"
+    "default_title": "PrsPrsTwitter",
+    "show_matches": ["https://twitter.com/*"]
   },
 
   "permissions":[
