@@ -28,10 +28,8 @@ const configUI = {
     const ret = {};
     SETTINGS_LIST.forEach((setting) => {
       const inpElm = document.getElementById(setting.id);
-      console.log(`??? ${inpElm[setting.value]}`);
       ret[setting.id] = setting.id === 'update_check_interval' ? parseInt(inpElm[setting.value]) : inpElm[setting.value];
     });
-    console.log(`${JSON.stringify(ret,null,2)}`);
     return ret;
   },
 
@@ -41,7 +39,6 @@ const configUI = {
       if(!result) {
         return;
       }
-      console.log(`${JSON.stringify(result,null,2)}`);
       SETTINGS_LIST.forEach((setting) => {
         const inpElm = document.getElementById(setting.id);
         if(result[setting.id] !== undefined && result[setting.id] !== null) {

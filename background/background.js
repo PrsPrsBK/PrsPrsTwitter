@@ -2,8 +2,7 @@ if(typeof browser === 'undefined') {
   window.browser = window.chrome;
 }
 
-browser.tabs.onUpdated.addListener((tabId, chgInfo, _tab) => {
-  console.log(`chgInfo ${JSON.stringify(chgInfo)}`);
+browser.tabs.onUpdated.addListener((tabId, _chgInfo, _tab) => {
   browser.pageAction.show(tabId);
 });
 

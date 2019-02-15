@@ -42,19 +42,11 @@ const pptw = {
 
   handleKeydown : (evt) => {
     if(SETTINGS.block_by_key === false && evt.key === 'b') {
-      console.log(`block ${SETTINGS.block_by_key}`);
       pptw.preventKeydown(evt);
     }
     else if(SETTINGS.mute_by_key === false && evt.key === 'u') {
-      console.log(`mute ${SETTINGS.mute_by_key}`);
       pptw.preventKeydown(evt);
     }
-    // else if(evt.key === 'a') {
-    //   pptw.setUpdateCheck(true);
-    // }
-    // else if(evt.key === 'q') {
-    //   pptw.setUpdateCheck(false);
-    // }
   },
 
   preventKeydown : (evt) => {
@@ -74,12 +66,18 @@ const pptw = {
   },
 
   setUpdateCheck : (goEnable) => {
-    if(goEnable && (SETTINGS.update_check === false || INTERVAL_ID === 'not_touched')) {
+    if(INTERVAL_ID === 'not_touched') {
+      if(goEnable) {
+        INTERVAL_ID = setInterval(pptw.clickUpdateButton, SETTINGS.update_check_interval);
+      }
+      pptw.updatePageAction();
+    }
+    else if(goEnable && SETTINGS.update_check === false) {
       INTERVAL_ID = setInterval(pptw.clickUpdateButton, SETTINGS.update_check_interval);
       SETTINGS.update_check = true;
       pptw.updatePageAction();
     }
-    else if(goEnable === false && (SETTINGS.update_check || INTERVAL_ID === 'not_touched')) {
+    else if(goEnable === false && SETTINGS.update_check) {
       clearInterval(INTERVAL_ID);
       SETTINGS.update_check = false;
       pptw.updatePageAction();
@@ -93,7 +91,7 @@ const pptw = {
           SETTINGS[key] = newSettings[key];
         }
       });
-      console.log(`${JSON.stringify(SETTINGS, null, 2)}`);
+      // console.log(`${JSON.stringify(SETTINGS, null, 2)}`);
     }
     pptw.setUpdateCheck(SETTINGS.update_check);
   },
@@ -112,8 +110,7 @@ const start = () => {
   });
 };
 
-browser.runtime.onMessage.addListener((message, sender) => {
-  console.log(`message ${JSON.stringify(message)} sender ${JSON.stringify(sender)}`);
+browser.runtime.onMessage.addListener((message, _sender) => {
   if(message.task === 'tweetList' && message.from === 'popup') {
     browser.runtime.sendMessage({
       task: message.task,
