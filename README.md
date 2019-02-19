@@ -25,7 +25,7 @@ Also I can not understand and not do anything with ...
 
 ## Known Issue
 
-* Sometimes icon in location bar is disabled.
+* Sometimes icon in location bar is disabled. - fixed at Firefox 64.
 
 I had issued on bugzilla.mozilla.org, and seeing how it goes.
 (1493470 - pageAction icon goes hidden respond to a cross-site domain's movie inside iframe)[https://bugzilla.mozilla.org/show_bug.cgi?id=1493470]
