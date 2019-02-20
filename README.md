@@ -2,7 +2,7 @@
 
 * This add-on is utility for twitter, and now available on Firefox and Chrome.
 For install, go to [PrsPrsTwitter – Add-ons for Firefox](https://addons.mozilla.org/en-US/firefox/addon/prsprstwitter/), 
-or [Chrome Web Store] (https://chrome.google.com/webstore/detail/prsprstwitter/gogodhhknklbgpppbjbcilokbonbjeeo).
+or [Chrome Web Store](https://chrome.google.com/webstore/detail/prsprstwitter/gogodhhknklbgpppbjbcilokbonbjeeo).
 
 
 ## What it does
