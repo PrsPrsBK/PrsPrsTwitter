@@ -1,7 +1,8 @@
 # PrsPrsTwitter
 
-* This add-on is utility for twitter, and now available on Firefox.
-For install, go to (PrsPrsTwitter – Add-ons for Firefox)[https://addons.mozilla.org/en-US/firefox/addon/prsprstwitter/].
+* This add-on is utility for twitter, and now available on Firefox and Chrome.
+For install, go to [PrsPrsTwitter – Add-ons for Firefox](https://addons.mozilla.org/en-US/firefox/addon/prsprstwitter/), 
+or [Chrome Web Store] (https://chrome.google.com/webstore/detail/prsprstwitter/gogodhhknklbgpppbjbcilokbonbjeeo).
 
 
 ## What it does
@@ -28,7 +29,7 @@ Also I can not understand and not do anything with ...
 * Sometimes icon in location bar is disabled. - fixed at Firefox 64.
 
 I had issued on bugzilla.mozilla.org, and seeing how it goes.
-(1493470 - pageAction icon goes hidden respond to a cross-site domain's movie inside iframe)[https://bugzilla.mozilla.org/show_bug.cgi?id=1493470]
+[1493470 - pageAction icon goes hidden respond to a cross-site domain's movie inside iframe](https://bugzilla.mozilla.org/show_bug.cgi?id=1493470)
 
 * I want to do `5 j` as on Vim.
 
