@@ -4,6 +4,7 @@
   "manifest_version": 2,
   "name": "PrsPrsTwitter",
   "version": "0.4.3",
+  "author": "PrsPrsBK",
   "homepage_url": "https://github.com/PrsPrsBK/prsprstwitter",
   "icons": {
     "48": "icons/icon-on.png"
