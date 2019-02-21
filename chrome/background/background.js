@@ -6,9 +6,10 @@ if(typeof browser === 'undefined') {
  * Google Chrome's "default_popup" in manifest.json is truely meaningless suck,
  * and requires such a ugly work around sucks.
  */
-browser.tabs.onUpdated.addListener((tabId, chgInfo, _tab) => {
-  console.log(`chgInfo ${JSON.stringify(chgInfo)}`);
-  browser.pageAction.show(tabId);
+browser.tabs.onUpdated.addListener((tabId, _chgInfo, tab) => {
+  if(tab.url.startsWith('https://twitter.com')) {
+    browser.pageAction.show(tabId);
+  }
 });
 
 browser.runtime.onMessage.addListener((message, sender) => {
