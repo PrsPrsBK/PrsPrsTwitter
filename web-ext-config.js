@@ -1,6 +1,7 @@
 module.exports = {
   verbose: false,
   ignoreFiles: [
+    'chrome/*',
     'icons/icon-off.png',
     'icons/icon.svg',
     'icons/icon-run.svg',
