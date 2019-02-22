@@ -6,19 +6,6 @@ $manifest = Get-Content .\manifest.json | ConvertFrom-Json
       "strict_min_version": "64"
     }
   },
-  "background": {
-    "scripts": [
-      "background/background.js"
-    ]
-  },
-  "content_scripts": [
-    {
-      "matches": "https://twitter.com/*",
-      "js": [
-        "content_scripts/entry.js"
-      ]
-    }
-  ],
   "options_ui": {
     "open_in_tab": true,
     "page": "options_ui/options.html"
@@ -34,12 +21,12 @@ $manifest = Get-Content .\manifest.json | ConvertFrom-Json
       "https://twitter.com/*"
     ]
   },
-  "permissions": [
-    "storage",
-    "tabs"
-  ]
 }
 #>
 $manifest.PsObject.Members.Remove("applications")
+$pageAction = $manifest.page_action
+$pageAction | Add-Member chrome_style $pageAction.browser_style
+$pageAction.PsObject.Members.Remove("browser_style")
+$pageAction.PsObject.Members.Remove("show_matches")
 
 $manifest | ConvertTo-Json -Depth 9 | Out-File .\manifest_c.json
