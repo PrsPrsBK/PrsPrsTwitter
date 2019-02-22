@@ -15,10 +15,26 @@ const STORE_NAME = 'pptw_settings';
 
 const pptw = {
 
+  /**
+   * click 'update' button, unless overlay appear in the topmost.
+   */
   clickUpdateButton : () => {
-    const wk_elm = document.getElementsByClassName('new-tweets-bar');
-    if(wk_elm && wk_elm.length > 0) {
-      wk_elm[0].click();
+    let wk_elm = document.getElementById('permalink-overlay');
+    let goClick = true;
+    if(wk_elm) {
+      const computedStyle = window.getComputedStyle(wk_elm);
+      if(computedStyle === undefined
+        || computedStyle.display === undefined
+        || computedStyle.display === 'block'
+        || computedStyle.opacity === 1) {
+        goClick = false;
+      }
+    }
+    if(goClick) {
+      wk_elm = document.getElementsByClassName('new-tweets-bar');
+      if(wk_elm && wk_elm.length > 0) {
+        wk_elm[0].click();
+      }
     }
   },
 
