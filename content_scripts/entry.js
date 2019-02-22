@@ -1,8 +1,3 @@
-
-if(typeof browser === 'undefined') {
-  window.browser = window.chrome;
-}
-
 let INTERVAL_ID = 'not_touched';
 // the same members as storage.local's
 const SETTINGS = {
@@ -46,7 +41,7 @@ const pptw = {
     const tweetTextArr = [];
     const tweetContainerList = root.querySelectorAll('.js-stream-item');
     if(tweetContainerList && tweetContainerList.length > 0) {
-      tweetContainerList.forEach((elm) => {
+      tweetContainerList.forEach(elm => {
         const textContainer = elm.querySelector('.tweet-text');
         if(textContainer) {
           tweetTextArr.push(textContainer.textContent.trim());
@@ -102,7 +97,7 @@ const pptw = {
 
   updateSettings : (newSettings) => {
     if(newSettings) {
-      Object.keys(newSettings).forEach((key) => {
+      Object.keys(newSettings).forEach(key => {
         if(SETTINGS.hasOwnProperty(key)) {
           SETTINGS[key] = newSettings[key];
         }

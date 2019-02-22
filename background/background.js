@@ -1,7 +1,3 @@
-if(typeof browser === 'undefined') {
-  window.browser = window.chrome;
-}
-
 browser.runtime.onMessage.addListener((message, sender) => {
   if(message.task === 'setIcon') {
     browser.pageAction.setIcon({

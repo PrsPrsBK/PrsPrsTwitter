@@ -1,7 +1,3 @@
-if(typeof browser === 'undefined') {
-  window.browser = window.chrome;
-}
-
 const popup = {
 
   initPopup : () => {

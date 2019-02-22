@@ -1,7 +1,3 @@
-if(typeof browser === 'undefined') {
-  window.browser = window.chrome;
-}
-
 const STORE_NAME = 'pptw_settings';
 const SETTINGS_LIST = [
   {
@@ -26,7 +22,7 @@ const configUI = {
 
   extractSettings : () => {
     const ret = {};
-    SETTINGS_LIST.forEach((setting) => {
+    SETTINGS_LIST.forEach(setting => {
       const inpElm = document.getElementById(setting.id);
       ret[setting.id] = setting.id === 'update_check_interval' ? parseInt(inpElm[setting.value]) : inpElm[setting.value];
     });
