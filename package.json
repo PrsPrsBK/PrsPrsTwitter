@@ -23,6 +23,7 @@
   "homepage": "https://github.com/PrsPrsBK/prsprstwitter#readme",
   "devDependencies": {
     "@types/firefox-webext-browser": "^65.0.0",
-    "eslint": "^4.11.0"
+    "eslint": "^4.11.0",
+    "webextension-polyfill": "^0.4.0"
   }
 }
