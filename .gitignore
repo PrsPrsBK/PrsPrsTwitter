@@ -4,7 +4,7 @@ web-ext-artifacts
 .web-extension-id
 note/*
 npm-debug.log
-resource/*
+resources/*
 js2flowchart/
 */*.js.svg
 yarn.lock

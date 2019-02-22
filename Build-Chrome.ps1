@@ -13,9 +13,18 @@ Remove-Item ./chrome/lib/*
 Remove-Item ./chrome/options_ui/*
 Remove-Item ./chrome/popup/*
 
-Copy-Item ./background_chrome.js ./chrome/background/background.js
+Copy-Item ./resources/background_chrome.js ./chrome/background/background.js
 Get-Content ./background/background.js | Add-Content -Path ./chrome/background/background.js
 Copy-Item ./content_scripts/entry.js ./chrome/content_scripts
+Copy-Item ./icons/icon-on.png ./chrome/icons
+Copy-Item ./icons/icon-run-48.png ./chrome/icons
+Copy-Item ./node_modules/webextension-polyfill/dist/browser-polyfill.min.js ./chrome/lib
+Copy-Item ./options_ui/options.css ./chrome/options_ui
+Copy-Item ./options_ui/options.html ./chrome/options_ui
+Copy-Item ./options_ui/options.js ./chrome/options_ui
+Copy-Item ./popup/popup.css ./chrome/popup
+Copy-Item ./popup/popup.html ./chrome/popup
+Copy-Item ./popup/popup.js ./chrome/popup
 Copy-Item LICENSE.txt ./chrome
 Copy-Item README.md ./chrome
 
