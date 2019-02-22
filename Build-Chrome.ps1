@@ -27,6 +27,7 @@ Copy-Item ./popup/popup.html ./chrome/popup
 Copy-Item ./popup/popup.js ./chrome/popup
 Copy-Item LICENSE.txt ./chrome
 Copy-Item README.md ./chrome
+Copy-Item ./resources/web-ext-config_chrome.js ./chrome/web-ext-config.js
 
 $manifest = Get-Content .\manifest.json | ConvertFrom-Json
 <#
