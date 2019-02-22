@@ -24,6 +24,25 @@ Also I can not understand and not do anything with ...
 * not Windows
 
 
+## How to build
+
+For Firefox:
+
+```console
+# cd root
+$ web-ext build # => web-ext-artifacts/xxx.zip
+```
+
+For Google Chrome:
+
+```console
+# cd root
+$ ./Prepare-Chrome.ps1 # generate files in chrome/
+$ cd chrome
+$ web-ext build # => web-ext-artifacts/xxx.zip
+```
+
+
 ## Known Issue
 
 * Sometimes icon in location bar is disabled. - fixed at Firefox 64.
@@ -41,3 +60,6 @@ and some post processes (to move forward selected tweet, or so) never be fired.
 For `true`, I guess that we need to have browser to fire keyevent, 
 but WebExtensions API does not have such an ability.
 
+## License
+
+MIT License
