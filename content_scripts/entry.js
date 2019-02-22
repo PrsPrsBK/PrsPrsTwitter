@@ -103,7 +103,6 @@ const pptw = {
           SETTINGS[key] = newSettings[key];
         }
       });
-      // console.log(`${JSON.stringify(SETTINGS, null, 2)}`);
     }
     pptw.setUpdateCheck(SETTINGS.update_check);
   },
