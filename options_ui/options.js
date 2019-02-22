@@ -34,17 +34,18 @@ const configUI = {
   },
 
   restoreEntries : () => {
-    browser.storage.local.get(STORE_NAME, (store_obj) => {
+    browser.storage.local.get(STORE_NAME).then(store_obj => {
       const result = store_obj[STORE_NAME];
-      if(!result) {
-        return;
+      if(result) {
+        SETTINGS_LIST.forEach(setting => {
+          const inpElm = document.getElementById(setting.id);
+          if(result[setting.id] !== undefined && result[setting.id] !== null) {
+            inpElm[setting.value] = result[setting.id];
+          }
+        });
       }
-      SETTINGS_LIST.forEach((setting) => {
-        const inpElm = document.getElementById(setting.id);
-        if(result[setting.id] !== undefined && result[setting.id] !== null) {
-          inpElm[setting.value] = result[setting.id];
-        }
-      });
+    }).catch(err => {
+      console.log(`Error: storage: ${err}`);
     });
   },
 
@@ -59,7 +60,7 @@ const configUI = {
 document.addEventListener('DOMContentLoaded', configUI.restoreEntries);
 document.getElementById('save').addEventListener('click', configUI.saveEntries);
 
-document.getElementById('update_check_interval').addEventListener('input', (e) => {
+document.getElementById('update_check_interval').addEventListener('input', e => {
   const saveButton = document.getElementById('save');
   if (e.target.validity.valid) {
     saveButton.disabled = false;

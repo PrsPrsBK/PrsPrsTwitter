@@ -119,10 +119,12 @@ const pptw = {
 };
 
 const start = () => {
-  browser.storage.local.get(STORE_NAME, (store_obj) => {
+  browser.storage.local.get(STORE_NAME).then(store_obj => {
     const result = store_obj[STORE_NAME];
     pptw.updateSettings(result);
     document.addEventListener('keydown', pptw.handleKeydown);
+  }).catch(err => {
+    console.log(`Error: start: ${err}`);
   });
 };
 

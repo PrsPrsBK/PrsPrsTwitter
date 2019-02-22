@@ -9,7 +9,7 @@ const popup = {
     while(tweetListRoot.firstChild) {
       tweetListRoot.removeChild(tweetListRoot.firstChild);
     }
-    browser.tabs.query({currentWindow: true, active: true}, (tabs) => {
+    browser.tabs.query({currentWindow: true, active: true}).then(tabs => {
       for(const tab of tabs) {
         browser.tabs.sendMessage(tab.id, {
           task: 'tweetList',
@@ -45,13 +45,13 @@ browser.runtime.onMessage.addListener((message, _sender) => {
     popup.loadTweets(message.tweetList);
   }
 });
-document.addEventListener('click', (e) => {
+document.addEventListener('click', e => {
   if(e.target.id === 'go_addon_page') {
     browser.runtime.openOptionsPage();
   }
   else if(e.target.id === 'toggle_update') {
     // we don't know storage settings, just toggle current value of active tab.
-    browser.tabs.query({currentWindow: true, active: true}, (tabs) => {
+    browser.tabs.query({currentWindow: true, active: true}).then(tabs => {
       for(const tab of tabs) {
         browser.tabs.sendMessage(tab.id, {
           task: 'toggleUpdateCheck',
@@ -61,7 +61,7 @@ document.addEventListener('click', (e) => {
     });
   }
   else if(e.target.classList.contains('each_tweet')) {
-    browser.tabs.query({currentWindow: true, active: true}, (tabs) => {
+    browser.tabs.query({currentWindow: true, active: true}).then(tabs => {
       for(const tab of tabs) {
         browser.tabs.sendMessage(tab.id, {
           task: 'scrollToTweet',
