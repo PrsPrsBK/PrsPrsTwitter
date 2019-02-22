@@ -6,6 +6,11 @@
   "version": "0.4.7",
   "author": "PrsPrsBK",
   "homepage_url": "https://github.com/PrsPrsBK/prsprstwitter",
+  "applications": {
+    "gecko": {
+      "strict_min_version": "64"
+    }
+  },
   "icons": {
     "48": "icons/icon-on.png"
   },
