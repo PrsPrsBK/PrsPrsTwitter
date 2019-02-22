@@ -81,16 +81,17 @@ const pptw = {
       if(goEnable) {
         INTERVAL_ID = setInterval(pptw.clickUpdateButton, SETTINGS.update_check_interval);
       }
+      SETTINGS.update_check = goEnable;
       pptw.updatePageAction();
     }
     else if(goEnable && SETTINGS.update_check === false) {
       INTERVAL_ID = setInterval(pptw.clickUpdateButton, SETTINGS.update_check_interval);
-      SETTINGS.update_check = true;
+      SETTINGS.update_check = goEnable;
       pptw.updatePageAction();
     }
     else if(goEnable === false && SETTINGS.update_check) {
       clearInterval(INTERVAL_ID);
-      SETTINGS.update_check = false;
+      SETTINGS.update_check = goEnable;
       pptw.updatePageAction();
     }
   },
