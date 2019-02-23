@@ -8,6 +8,7 @@ module.exports = {
     '*.log',
     'note/',
     'package.json',
+    '*.ps1',
     'resources/',
     'test/',
     '.tern-project',
